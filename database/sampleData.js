@@ -28,24 +28,24 @@ module.exports.users = [
     "cohort": "HRSF-77"
   },
   {
-    "firstName": "Jeffrey",
-    "lastName": "Filippello",
-    "username": "jeffrey_filippello",
-    "role": "student",
-    "cohort": "HRSF-78"
+    "firstName": "Pablo",
+    "lastName": "Boserman",
+    "username": "pboserman",
+    "role": "admin",
+    "cohort": "HRSF-77"
   },
   {
-    "firstName": "Helenelizabeth",
-    "lastName": "Bedson",
-    "username": "helenelizabeth_bedson",
-    "role": "student",
-    "cohort": "HRSF-78"
+    "firstName": "Kai",
+    "lastName": "Mashima",
+    "username": "kai-mashima",
+    "role": "admin",
+    "cohort": "HRSF-77"
   },
   {
-    "firstName": "Melisenda",
-    "lastName": "Kloisner",
-    "username": "melisenda_kloisner",
-    "role": "student",
+    "firstName": "Jeff",
+    "lastName": "Shindelus",
+    "username": "shindelus",
+    "role": "admin",
     "cohort": "HRSF-77"
   },
   {
