@@ -45,7 +45,7 @@ module.exports.users = [
     "firstName": "Jeff",
     "lastName": "Shindelus",
     "username": "shindelus",
-    "role": "admin",
+    "role": "mentor",
     "cohort": "HRSF-77"
   },
   {

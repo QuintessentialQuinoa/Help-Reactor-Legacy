@@ -23,7 +23,7 @@ class App extends React.Component {
       statistic: {},
       waitTime: 0,
       mentorResponse: [],
-      mentorResolution: []
+      mentorResolution: [],
     };
   }
 
@@ -50,7 +50,7 @@ class App extends React.Component {
 
   componentDidMount() {
     if (!this.state.user) { return; }
-    
+
     let option = {
       id: this.state.user.id,
       role: this.state.user.role,
@@ -85,6 +85,8 @@ class App extends React.Component {
     this.socket.on('new mentor resolution time', data => this.setState({ mentorResolution: data.data}));
 
     this.socket.on('call request', data => console.log(data));
+
+    this.socket.on('new tickets per day', data => this.setState({ ticketsPerDay: data }))
 
     this.getTickets(option);
   }
@@ -211,17 +213,21 @@ class App extends React.Component {
 
     if (isAuthenticated) {
       nav = <Nav user={this.state.user} />;
-      header = <Header 
+      header = <Header
         handleCall={this.handleCall.bind(this)}
-        getOnlineUsers={this.getOnlineUsers.bind(this)} 
-        statistic={this.state.statistic} 
-        onlineUsers={this.state.onlineUsers} 
+        getOnlineUsers={this.getOnlineUsers.bind(this)}
+        statistic={this.state.statistic}
+        onlineUsers={this.state.onlineUsers}
         onlineUserInfo={this.state.onlineUserInfo}
-        user={this.state.user} 
+        user={this.state.user}
         waitTime={this.state.waitTime}
         mentorResponseTime={this.state.mentorResponse}
-        mentorResolutionTime={this.state.mentorResolution}/>;
+        mentorResolutionTime={this.state.mentorResolution}
+        user={this.state.user}
+        waitTime={this.state.waitTime}/>;
       list = <TicketList user={this.state.user} ticketList={this.state.ticketList} updateTickets={this.updateTickets.bind(this)} hasClaimed={this.state.hasClaimed} />;
+      header = <Header statistic={this.state.statistic} onlineUsers={this.state.onlineUsers} user={this.state.user} waitTime={this.state.waitTime}/>;
+      list = <TicketList user={this.state.user} ticketList={this.state.ticketList} updateTickets={this.updateTickets.bind(this)} hasClaimed={this.state.hasClaimed} ticketsPerDay={this.state.ticketsPerDay} />;
     }
 
     if (!isAuthenticated) {

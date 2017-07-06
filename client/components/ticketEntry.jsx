@@ -44,7 +44,7 @@ class TicketEntry extends React.Component {
     return (
       <div className={`ticket_list_entry alert ${className} clearfix`}>
         <div className="ticket_list_entry_meta clearfix">
-          <div className="ticket_list_entry_name">{this.props.ticket.user.firstName} {this.props.ticket.user.lastName} ({this.props.ticket.location})</div>
+          <div className="ticket_list_entry_name">{this.props.ticket.user.firstName} {this.props.ticket.user.lastName} ({this.props.ticket.location}, {this.props.ticketsPerDay} tickets/day avg) </div>
           <div className="ticket_list_entry_time">- {time}</div>
           {claimed}
         </div>

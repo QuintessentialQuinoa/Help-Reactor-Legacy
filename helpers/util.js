@@ -20,7 +20,7 @@ var connectionCount = function connectionCount(students, mentors, admins) {
     admin: Object.keys(admins).length
   };
   return res;
-}; 
+};
 
 var findQueuePos = function(tickets, userId) {
   return tickets.filter(function (ticket) {
@@ -47,7 +47,7 @@ var computeSimpleWaitAverage = function(tickets, storage) {
 var getEstimate = function(excessMentors, queuePos, estimatedInterval) {
   var estimate = 0;
   var countAvail = excessMentors
-  if(queuePos === 0) { 
+  if(queuePos === 0) {
     queuePos = tickets.filter(function (ticket) {return ticket.claimedAt && !ticket.closedAt}).length;
   } else if (queuePos >= 0) {
     for (var i = 0; i < queuePos; i++) {
@@ -98,7 +98,6 @@ var computeAvgMentorResTime = function(tickets, id) {
   return mentorAveResTime;
 };
 
-
 var computeMentorResolutionTimeAverage = function(tickets) {
   return tickets.reduce(function (acc, curr) {
     var date = Date.parse(curr.closedAt);
@@ -123,3 +122,4 @@ module.exports = {
   computeAvgMentorResTime: computeAvgMentorResTime,
   computeAvgMentorResolutionTime: computeAvgMentorResolutionTime
 };
+
