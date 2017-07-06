@@ -12,6 +12,7 @@ const OnlineUserEntry = ({user, resTime}) => {
     </div>
     <div className="modal-entry-username modal-entry">{user.username}</div>
     <div className="modal-entry-username modal-entry">{resTime} Minutes</div>
+    <button className="modal-entry-video-chat modal-entry fa fa-video-camera"></button>
     </div>
   );
 };

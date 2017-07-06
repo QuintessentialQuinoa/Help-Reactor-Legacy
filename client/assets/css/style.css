@@ -247,9 +247,8 @@ h6:last-child {
 }
 
 .modal-label-entry {
-  flex: none 1 auto;
+  flex: 1 1 20%;
   padding-bottom: 5px;
-  padding-left: 30px;
 }
 
 .modal-entry-container {
@@ -260,7 +259,7 @@ h6:last-child {
 
 .modal-entry {
   flex: 1 1 auto;
-  padding: 5px;
+  padding: 10px;
 }
 
 .modal-entry-img {
