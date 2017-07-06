@@ -226,7 +226,13 @@ class App extends React.Component {
         user={this.state.user}
         waitTime={this.state.waitTime}/>;
       list = <TicketList user={this.state.user} ticketList={this.state.ticketList} updateTickets={this.updateTickets.bind(this)} hasClaimed={this.state.hasClaimed} />;
-      header = <Header statistic={this.state.statistic} onlineUsers={this.state.onlineUsers} user={this.state.user} waitTime={this.state.waitTime}/>;
+      header = <Header
+         getOnlineUsers={this.getOnlineUsers.bind(this)}
+         statistic={this.state.statistic}
+         onlineUsers={this.state.onlineUsers}
+         onlineUserInfo={this.state.onlineUserInfo}
+         user={this.state.user}
+         waitTime={this.state.waitTime}/>;
       list = <TicketList user={this.state.user} ticketList={this.state.ticketList} updateTickets={this.updateTickets.bind(this)} hasClaimed={this.state.hasClaimed} ticketsPerDay={this.state.ticketsPerDay} />;
     }
 
