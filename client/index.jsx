@@ -18,6 +18,7 @@ class App extends React.Component {
       user: null,
       isAuthenticated: false,
       onlineUsers: {},
+      onlineUserInfo: [],
       statistic: {},
       waitTime: 0
     };
@@ -48,7 +49,12 @@ class App extends React.Component {
     if (!this.state.user) { return; }
     let option = {
       id: this.state.user.id,
-      role: this.state.user.role
+      role: this.state.user.role,
+      username: this.state.user.username,
+      firstName: this.state.user.firstName,
+      lastName: this.state.user.lastName,
+      cohort: this.state.user.cohort,
+      avatarUrl: this.state.user.avatarUrl
     };
     this.socket = io({ query: option });
     this.socket.emit('update adminStats');
@@ -64,6 +70,8 @@ class App extends React.Component {
     this.socket.on('user connect', data => this.setState({ onlineUsers: data }));
 
     this.socket.on('user disconnect', data => this.setState({ onlineUsers: data }));
+
+    this.socket.on('online info', data => this.setState({onlineUserInfo: data}));
 
     this.getTickets(option);
   }
@@ -107,6 +115,10 @@ class App extends React.Component {
       },
       errorPlacement: function(error, element) {} // Do not show error messages
     });
+  }
+
+  getOnlineUsers(userType) {
+    this.socket.emit('get online users', userType);
   }
 
   updateTickets(data) {
@@ -169,6 +181,7 @@ class App extends React.Component {
     return $('.claim_btn').prop('disabled', false);
   }
 
+
   render() {
     let user = this.state.user;
     let isAuthenticated = this.state.isAuthenticated;
@@ -179,7 +192,13 @@ class App extends React.Component {
 
     if (isAuthenticated) {
       nav = <Nav user={this.state.user} />;
-      header = <Header statistic={this.state.statistic} onlineUsers={this.state.onlineUsers} user={this.state.user} waitTime={this.state.waitTime}/>;
+      header = <Header 
+        getOnlineUsers={this.getOnlineUsers.bind(this)} 
+        statistic={this.state.statistic} 
+        onlineUsers={this.state.onlineUsers} 
+        onlineUserInfo={this.state.onlineUserInfo}
+        user={this.state.user} 
+        waitTime={this.state.waitTime}/>;
       list = <TicketList user={this.state.user} ticketList={this.state.ticketList} updateTickets={this.updateTickets.bind(this)} hasClaimed={this.state.hasClaimed} />;
     }
 

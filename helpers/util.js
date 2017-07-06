@@ -74,8 +74,17 @@ var computeAvgWaitTime = function (tickets, mentors, userId) {
   return getEstimate(excessMentors, queuePos, estimatedInterval);
 };
 
+var mapInfo = function(users) {
+  var result = [];
+  Object.keys(users).forEach(key => {
+    result.push(users[key][0].handshake.query);
+  });
+  return result;
+};
+
 module.exports = {
   displayAlert: displayAlert,
   computeAvgWaitTime: computeAvgWaitTime,
-  connectionCount: connectionCount
+  connectionCount: connectionCount,
+  mapInfo: mapInfo
 };
