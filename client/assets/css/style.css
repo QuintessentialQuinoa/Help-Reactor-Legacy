@@ -99,6 +99,10 @@ h6:last-child {
   color: #337ab7;
 }
 
+.page_header span:hover {
+  color: #132aa7;
+}
+
 .login {
   background-color: #fff;
   border-radius: 5px;
@@ -243,7 +247,7 @@ h6:last-child {
 }
 .modal-entry-name {
   font-weight: 700;
-  margin-left: 5px;
+  margin-left: 20px;
 }
 
 .modal-close {
