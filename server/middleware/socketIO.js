@@ -73,6 +73,7 @@ module.exports = server => {
         }
         io.emit('new mentor response time', {data});
       });
+    });
   
     // logic has flaws
     // socket.on('update adminStats', () => {

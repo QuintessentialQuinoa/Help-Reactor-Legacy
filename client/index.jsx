@@ -75,6 +75,8 @@ class App extends React.Component {
 
     this.socket.on('user disconnect', data => this.setState({ onlineUsers: data }));
 
+    this.socket.on('online info', data => this.setState({onlineUserInfo: data}));
+
     this.socket.on('new mentor response time', data => this.setState({ mentors: data.data}));
 
     this.getTickets(option);

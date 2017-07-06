@@ -80,6 +80,7 @@ var mapInfo = function(users) {
     result.push(users[key][0].handshake.query);
   });
   return result;
+};
 
 var computeMentorWairAverage = function(tickets) {
   return tickets.reduce(function (acc, curr) {
