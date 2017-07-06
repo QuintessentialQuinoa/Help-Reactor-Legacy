@@ -58,7 +58,7 @@ module.exports = server => {
     });
 
     socket.on('get online users', (type) => {
-      var userType = type === 'student' ? students : (type === 'mentor' ? mentors : {});
+      var userType = type === 'students' ? students : (type === 'mentors' ? mentors : {});
       io.emit('online info', util.mapInfo(userType));
     });
 

@@ -6,7 +6,8 @@ class Header extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      modalOpen: false
+      modalOpen: false,
+      modalUserType: ''
     };
     this.openModal.bind(this);
   }
@@ -20,6 +21,7 @@ class Header extends React.Component {
   openModal (userType) {
     this.props.getOnlineUsers(userType);
     this.setState({
+      modalUserType: userType,
       modalOpen: true
     });
   }
@@ -31,9 +33,9 @@ class Header extends React.Component {
       welcome =
         <h4>
           There are currently 
-          <span onClick={ () => this.openModal('mentor') }> {this.props.onlineUsers.mentor} mentors
+          <span onClick={ () => this.openModal('mentors') }> {this.props.onlineUsers.mentor} mentors
           </span> and
-          <span onClick={ () => this.openModal('student') }> {this.props.onlineUsers.student} students
+          <span onClick={ () => this.openModal('students') }> {this.props.onlineUsers.student} students
           </span> online,
           and the estimated wait time is <span>{this.props.waitTime} minutes</span>.<br />
           There are currently <span>{this.props.statistic.open} open tickets </span>
@@ -55,6 +57,7 @@ class Header extends React.Component {
           {welcome}
         </div>
         <OnlineUsers 
+          userType={this.state.modalUserType}
           users={this.props.onlineUserInfo} 
           isOpen={this.state.modalOpen} 
           closeModal={this.closeModal.bind(this)} />

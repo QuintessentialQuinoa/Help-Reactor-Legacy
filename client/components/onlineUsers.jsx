@@ -28,7 +28,7 @@ var ModalStyle = {
   }
 };
 
-const OnlineUsers = ({users, isOpen, closeModal}) => {
+const OnlineUsers = ({userType, users, isOpen, closeModal}) => {
   return (
     <Modal 
       isOpen={isOpen} 
@@ -36,7 +36,7 @@ const OnlineUsers = ({users, isOpen, closeModal}) => {
       onRequestClose={closeModal} 
       contentLabel="Online Users">
       <div>
-        <h1>Online Users</h1>
+        <h1>Online {userType.charAt(0).toUpperCase() + userType.slice(1)}</h1>
         <hr/>
         <div>
           <div>
