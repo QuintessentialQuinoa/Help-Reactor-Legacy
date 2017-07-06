@@ -11,9 +11,11 @@ class OnlineUsers extends React.Component {
     return (
       <div className="onlineUserContainer">
         <div className="modal-label-container">
-          <div className="modal-label-entry">Github Link</div>
-          <div className="modal-label-entry">Github Username</div>
-          <div className="modal-label-entry">Average Response Time</div>
+          <div className="modal-label-entry"></div>
+          <div className="modal-label-entry">Name</div>
+          <div className="modal-label-entry">Username</div>
+          <div className="modal-label-entry">Avg. Response Time</div>
+          <div className="modal-label-entry"></div>
         </div>
         {users.map((user, index) => {
           var id = user.id;
