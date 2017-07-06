@@ -57,6 +57,11 @@ module.exports = server => {
         });
     });
 
+    socket.on('get online users', (type) => {
+      var userType = type === 'student' ? students : (type === 'mentor' ? mentors : {});
+      io.emit('online info', util.mapInfo(userType));
+    });
+
     // logic has flaws
     // socket.on('update adminStats', () => {
     //   Ticket.findAll({ where: { createdAt: { $gt: new Date(new Date() - 24 * 60 * 60 * 1000) } } })
