@@ -61,7 +61,7 @@ var getEstimate = function(excessMentors, queuePos, estimatedInterval) {
   }
 };
 
-var computeAvgWaitTime = function (tickets, mentors, userId) {
+var computeAvgWaitTime = function(tickets, mentors, userId) {
   var storage = [];
   var sum = computeSimpleWaitAverage(tickets, storage);
   var queuePos = findQueuePos(tickets, userId);
@@ -80,11 +80,27 @@ var mapInfo = function(users) {
     result.push(users[key][0].handshake.query);
   });
   return result;
+
+var computeMentorWairAverage = function(tickets) {
+  return tickets.reduce(function (acc, curr) {
+    var date = Date.parse(curr.claimedAt);
+    var wait = date - Date.parse(curr.createdAt);
+    return acc + wait;
+  }, 0);
+};
+
+var computeAvgMentorResTime = function(tickets, id) {
+  var mentorTickets = tickets.filter(function (ticket) {return (ticket.status == 'Closed' && ticket.claimedBy == id) || (ticket.status == 'Claimed' && ticket.claimedBy == id)});
+  var numTickets = mentorTickets.length;
+  var rawTotalTime = computeMentorWairAverage(mentorTickets);
+  var mentorAveResTime = new Date(rawTotalTime / numTickets).getUTCMinutes()
+  return mentorAveResTime;
 };
 
 module.exports = {
   displayAlert: displayAlert,
   computeAvgWaitTime: computeAvgWaitTime,
   connectionCount: connectionCount,
-  mapInfo: mapInfo
+  mapInfo: mapInfo,
+  computeAvgMentorResTime: computeAvgMentorResTime
 };

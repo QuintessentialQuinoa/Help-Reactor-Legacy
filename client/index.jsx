@@ -20,7 +20,8 @@ class App extends React.Component {
       onlineUsers: {},
       onlineUserInfo: [],
       statistic: {},
-      waitTime: 0
+      waitTime: 0,
+      mentors: []
     };
   }
 
@@ -47,6 +48,7 @@ class App extends React.Component {
 
   componentDidMount() {
     if (!this.state.user) { return; }
+    
     let option = {
       id: this.state.user.id,
       role: this.state.user.role,
@@ -56,8 +58,10 @@ class App extends React.Component {
       cohort: this.state.user.cohort,
       avatarUrl: this.state.user.avatarUrl
     };
+
     this.socket = io({ query: option });
     this.socket.emit('update adminStats');
+    this.socket.emit('get mentor response time');
 
     this.socket.on('update or submit ticket', () => {
       return option.role === 'admin' ? this.filterTickets() : this.getTickets(option);
@@ -71,7 +75,7 @@ class App extends React.Component {
 
     this.socket.on('user disconnect', data => this.setState({ onlineUsers: data }));
 
-    this.socket.on('online info', data => this.setState({onlineUserInfo: data}));
+    this.socket.on('new mentor response time', data => this.setState({ mentors: data.data}));
 
     this.getTickets(option);
   }
@@ -134,6 +138,7 @@ class App extends React.Component {
         this.socket.emit('refresh');
         this.socket.emit('update adminStats');
         this.socket.emit('get wait time');
+        this.socket.emit('get mentor response time');
       },
       error: (err) => {
         console.log('failed to update ticket');
