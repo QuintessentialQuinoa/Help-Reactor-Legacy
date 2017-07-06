@@ -60,10 +60,11 @@ module.exports = server => {
     socket.on('get online users', (type) => {
       var userType = type === 'students' ? students : (type === 'mentors' ? mentors : {});
       io.emit('online info', util.mapInfo(userType));
+    });
 
     socket.on('update tickets per day', () => {
 
-      socket.emit('new tickets per day', ticketsPerDay);
+      //socket.emit('new tickets per day', ticketsPerDay);
     });
 
     socket.on('get mentor response time', () => {
