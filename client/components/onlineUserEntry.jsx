@@ -1,11 +1,17 @@
 import React from 'react';
 
-const OnlineUserEntry = ({user}) => {
+const OnlineUserEntry = ({user, resTime}) => {
   console.log(user);
   return (
     <div className="modal-entry-container">
     <img className="modal-entry-img" src={user.avatarUrl} />
-    <a href={`https://www.github.com/${user.username}`} target="_blank"><span className="modal-entry-name">{user.firstName} {user.lastName}</span></a> - <span className="modal-entry-username">{user.username}</span>
+    <div className="modal-entry-name modal-entry">
+      <a href={`https://www.github.com/${user.username}`} target="_blank">
+        <div>{user.firstName} {user.lastName}</div>
+      </a>
+    </div>
+    <div className="modal-entry-username modal-entry">{user.username}</div>
+    <div className="modal-entry-username modal-entry">{resTime} Minutes</div>
     </div>
   );
 };

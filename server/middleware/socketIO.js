@@ -62,6 +62,19 @@ module.exports = server => {
       io.emit('online info', util.mapInfo(userType));
     });
 
+    socket.on('get mentor response time', () => {
+      var data = [];
+      Ticket.findAll().then(tickets => {
+        for (let key in mentors) {
+          let mentorObj = {};
+          var aveResTime = util.computeAvgMentorResTime(tickets, key);
+          mentorObj[key] = aveResTime;
+          data.push(mentorObj);
+        }
+        io.emit('new mentor response time', {data});
+      });
+    });
+  
     // logic has flaws
     // socket.on('update adminStats', () => {
     //   Ticket.findAll({ where: { createdAt: { $gt: new Date(new Date() - 24 * 60 * 60 * 1000) } } })
