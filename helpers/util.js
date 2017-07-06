@@ -82,7 +82,7 @@ var mapInfo = function(users) {
   return result;
 };
 
-var computeMentorWairAverage = function(tickets) {
+var computeMentorTimeAverage = function(tickets) {
   return tickets.reduce(function (acc, curr) {
     var date = Date.parse(curr.claimedAt);
     var wait = date - Date.parse(curr.createdAt);
@@ -93,7 +93,7 @@ var computeMentorWairAverage = function(tickets) {
 var computeAvgMentorResTime = function(tickets, id) {
   var mentorTickets = tickets.filter(function (ticket) {return (ticket.status == 'Closed' && ticket.claimedBy == id) || (ticket.status == 'Claimed' && ticket.claimedBy == id)});
   var numTickets = mentorTickets.length;
-  var rawTotalTime = computeMentorWairAverage(mentorTickets);
+  var rawTotalTime = computeMentorTimeAverage(mentorTickets);
   var mentorAveResTime = new Date(rawTotalTime / numTickets).getUTCMinutes()
   return mentorAveResTime;
 };
