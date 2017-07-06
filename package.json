@@ -41,6 +41,7 @@
     "passport-github": "^1.1.0",
     "pg": "^6.4.0",
     "react": "^15.6.1",
+    "react-bootstrap": "^0.31.0",
     "react-dom": "^15.6.1",
     "react-modal": "^2.2.1",
     "redis": "^2.7.1",

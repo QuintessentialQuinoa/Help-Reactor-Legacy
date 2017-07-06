@@ -205,7 +205,8 @@ class App extends React.Component {
         onlineUsers={this.state.onlineUsers} 
         onlineUserInfo={this.state.onlineUserInfo}
         user={this.state.user} 
-        waitTime={this.state.waitTime}/>;
+        waitTime={this.state.waitTime}
+        mentorResTime={this.state.mentors}/>;
       list = <TicketList user={this.state.user} ticketList={this.state.ticketList} updateTickets={this.updateTickets.bind(this)} hasClaimed={this.state.hasClaimed} />;
     }
 

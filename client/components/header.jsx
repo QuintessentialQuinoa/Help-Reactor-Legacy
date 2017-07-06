@@ -1,28 +1,32 @@
 import React from 'react';
+//import Modal from 'react-modal';
+import Modal from 'react-bootstrap/lib/Modal';
+import Button from 'react-bootstrap/lib/Button';
 import OnlineUsers from './onlineUsers.jsx';
+import OnlineUserEntry from './onlineUserEntry.jsx';
 
 class Header extends React.Component {
-  
   constructor (props) {
     super(props);
     this.state = {
-      modalOpen: false,
+      showModal: false,
       modalUserType: ''
     };
-    this.openModal.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
-  closeModal () {
+  closeModal() {
     this.setState({
-      modalOpen: false
+      showModal: false
     });
   }
 
-  openModal (userType) {
+  openModal(userType) {
     this.props.getOnlineUsers(userType);
     this.setState({
       modalUserType: userType,
-      modalOpen: true
+      showModal: true
     });
   }
 
@@ -56,11 +60,19 @@ class Header extends React.Component {
           <h3>Welcome back {this.props.user.firstName}!</h3>
           {welcome}
         </div>
-        <OnlineUsers 
-          userType={this.state.modalUserType}
-          users={this.props.onlineUserInfo} 
-          isOpen={this.state.modalOpen} 
-          closeModal={this.closeModal.bind(this)} />
+        <Modal 
+          show={this.state.showModal} 
+          onHide={this.closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Online {this.state.modalUserType.charAt(0).toUpperCase() + this.state.modalUserType.slice(1)}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <OnlineUsers users={this.props.onlineUserInfo} mentorResTime={this.props.mentorResTime}/>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.closeModal}>Close</Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }

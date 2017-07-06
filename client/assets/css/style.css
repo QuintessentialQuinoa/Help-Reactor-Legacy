@@ -232,18 +232,46 @@ h6:last-child {
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px #ce8483 !important;
 }
 
+.onlineUserContainer {
+/*  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  flex-direction: column;*/
+}
+
+.modal-label-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.modal-label-entry {
+  flex: none 1 auto;
+  padding-bottom: 5px;
+  padding-left: 30px;
+}
+
 .modal-entry-container {
+  display: flex;
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px;
+  flex-direction: row;
+}
+
+.modal-entry {
+  flex: 1 1 auto;
+  padding: 5px;
 }
 
 .modal-entry-img {
   margin: 5px;
-  height: 10%;
-  width: 10%;
+  height: 50px;
+  width: 50px;
 }
+
 .modal-entry-username {
-  font-style: italic;
-  font-size: 11px;
+  flex: 1 2 auto;
+  padding: 5px;
 }
 .modal-entry-name {
   font-weight: 700;
