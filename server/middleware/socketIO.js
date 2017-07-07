@@ -102,7 +102,6 @@ module.exports = server => {
     });
 
     socket.on('call user', (info) => {
-      console.log('Call info: ', info);
       if (info.user.role === 'student') {
         students[info.user.id].forEach(socket => socket.emit('call request', info));
       } else if (info.user.role === 'mentor') {
