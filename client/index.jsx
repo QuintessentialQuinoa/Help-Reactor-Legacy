@@ -18,11 +18,12 @@ class App extends React.Component {
     this.state = {
       // users: [],
       showVideoModal: false,
+      acceptVideo: false,
       ticketList: [],
       ticketCategoryList: ['React', 'Socket.IO', 'Recursion', 'Postgres'],
       user: null,
       isAuthenticated: false,
-      caller: {},
+      caller: { user: { firstName: 'null' }},
       onlineUsers: {},
       onlineUserInfo: [],
       statistic: {},
@@ -34,6 +35,7 @@ class App extends React.Component {
     window.navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
     this.closeVideoModal = this.closeVideoModal.bind(this);
     this.openVideoModal = this.openVideoModal.bind(this);
+    this.acceptIncomingVideo = this.acceptIncomingVideo.bind(this);
   }
 
   componentWillMount() {
@@ -219,13 +221,20 @@ class App extends React.Component {
 
   closeVideoModal() {
     this.setState({
-      showVideoModal: false
+      showVideoModal: false,
+      acceptVideo: false
     });
   }
 
   openVideoModal() {
     this.setState({
       showVideoModal: true
+    });
+  }
+
+  acceptIncomingVideo() {
+    this.setState({
+      acceptVideo: true
     });
   }
 
@@ -238,32 +247,30 @@ class App extends React.Component {
     let list = null;
     let videoModal = null;
     let modalButton = null;
+    let video = null;
 
     if (isAuthenticated) {
       nav = <Nav user={this.state.user} />;
+
+      if (this.state.acceptVideo) {
+        video = <video src={this.state.caller.stream} autoPlay></video>;
+      }
 
       videoModal = <Modal
           show={this.state.showVideoModal}
           onHide={this.closeVideoModal}
           bsSize='lg'>
           <Modal.Header closeButton>
-            <Modal.Title>Incoming Video Call</Modal.Title>
+            <Modal.Title>Incoming Video Call From {this.state.caller.user.firstName}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-              Video Here
+              {video}
           </Modal.Body>
           <Modal.Footer>
-            <Button>Accept</Button>
+            <Button onClick={this.acceptIncomingVideo}>Accept</Button>
             <Button onClick={this.closeVideoModal}>Decline</Button>
           </Modal.Footer>
         </Modal>;
-
-      modalButton = <Button
-          bsStyle="primary"
-          bsSize="large"
-          onClick={this.openVideoModal}>
-          Test Modal
-        </Button>;
 
       header = <Header
         handleCall={this.handleCall.bind(this)}
