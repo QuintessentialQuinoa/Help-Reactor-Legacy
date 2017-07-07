@@ -104,13 +104,9 @@ module.exports = server => {
     socket.on('call user', (info) => {
       console.log('Call info: ', info);
       if (info.user.role === 'student') {
-        if (info.user.id === students[info.user.id][0].handshake.query.id) {
-          io.emit('call request', info);
-        }
+        students[info.user.id].forEach(socket => socket.emit('call request', info));
       } else if (info.user.role === 'mentor') {
-        if (info.user.id === mentors[info.user.id][0].handshake.query.id) {
-          io.emit('call request', info);
-        }
+        mentors[info.user.id].forEach(socket => socket.emit('call request', info));
       }
     });
 
