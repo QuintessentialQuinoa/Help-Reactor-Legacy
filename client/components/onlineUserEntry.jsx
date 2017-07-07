@@ -19,7 +19,7 @@ class OnlineUserEntry extends React.Component {
       var camera = this.Camera();
       navigator.getUserMedia(camera.constraints, camera.onSuccess, camera.onError);
     } else {
-      console.log(this.state.stream);
+      this.state.stream.getTracks().forEach(track => track.stop());
     }
     this.setState((prevState) => {
       return { showCamera: !prevState.showCamera };
@@ -35,6 +35,7 @@ class OnlineUserEntry extends React.Component {
       this.setState({
         stream: stream
       });
+      console.log('Stream keys: ', stream.stop);
       this.Call(this.props.user, stream);
     });
   }
