@@ -52,7 +52,7 @@ class Header extends React.Component {
           The estimated wait time is <span>{this.props.waitTime} minutes</span>.
         </h4>;
     }
-
+    
     return (
       <div className="page_header">
         <div className="container">
@@ -71,7 +71,8 @@ class Header extends React.Component {
               handleCall={this.props.handleCall}
               users={this.props.onlineUserInfo} 
               mentorResponseTime={this.props.mentorResponseTime} 
-              mentorResolutionTime={this.props.mentorResolutionTime} />
+              mentorResolutionTime={this.props.mentorResolutionTime} 
+              modalUserType={this.state.modalUserType}/>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.closeModal}>Close</Button>

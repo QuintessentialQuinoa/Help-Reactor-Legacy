@@ -264,6 +264,7 @@ h6:last-child {
   align-items: center;
   border: 1px solid #999999;
   border-radius: 4px;
+  padding: 5px;
 }
 
 .modal-entry {

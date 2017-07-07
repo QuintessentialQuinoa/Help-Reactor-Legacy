@@ -80,7 +80,7 @@ module.exports = server => {
       Ticket.findAll().then(tickets => {
         for (let key in mentors) {
           let mentorObj = {};
-          var aveResTime = util.computeAvgMentorResTime(tickets, key);
+          var aveResTime = util.computeAvgMentorResponseTime(tickets, key);
           mentorObj[key] = aveResTime;
           data.push(mentorObj);
         }

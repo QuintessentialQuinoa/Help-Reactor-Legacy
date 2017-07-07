@@ -391,7 +391,7 @@ module.exports.tickets = [
     "claimedBy": 6,
     "createdAt": "2017-05-10 14:12:40",
     "claimedAt": "2017-05-10 14:25:40",
-    "closedAt": "2017-05-10 14:38:40",
+    "closedAt": "2017-05-10 14:55:40",
     "updatedAt": "2017-05-10 14:38:40",
     "status": "Closed",
     "userId": 10
