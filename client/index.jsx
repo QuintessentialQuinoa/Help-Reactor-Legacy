@@ -17,6 +17,7 @@ class App extends React.Component {
       ticketCategoryList: ['React', 'Socket.IO', 'Recursion', 'Postgres'],
       user: null,
       isAuthenticated: false,
+      caller: {},
       onlineUsers: {},
       onlineUserInfo: [],
       statistic: {},
@@ -83,6 +84,8 @@ class App extends React.Component {
 
     this.socket.on('new mentor resolution time', data => this.setState({ mentorResolution: data.data}));
 
+    this.socket.on('call request', data => console.log(data));
+
     this.getTickets(option);
   }
 
@@ -129,6 +132,10 @@ class App extends React.Component {
 
   getOnlineUsers(userType) {
     this.socket.emit('get online users', userType);
+  }
+
+  handleCall(user, stream) {
+    this.socket.emit('call user', {user, stream});
   }
 
   updateTickets(data) {
@@ -192,6 +199,8 @@ class App extends React.Component {
   }
 
 
+
+
   render() {
     let user = this.state.user;
     let isAuthenticated = this.state.isAuthenticated;
@@ -203,6 +212,7 @@ class App extends React.Component {
     if (isAuthenticated) {
       nav = <Nav user={this.state.user} />;
       header = <Header 
+        handleCall={this.handleCall.bind(this)}
         getOnlineUsers={this.getOnlineUsers.bind(this)} 
         statistic={this.state.statistic} 
         onlineUsers={this.state.onlineUsers} 
