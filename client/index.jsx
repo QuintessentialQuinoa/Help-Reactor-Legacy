@@ -21,7 +21,8 @@ class App extends React.Component {
       onlineUserInfo: [],
       statistic: {},
       waitTime: 0,
-      mentors: []
+      mentorResponse: [],
+      mentorResolution: []
     };
   }
 
@@ -62,6 +63,7 @@ class App extends React.Component {
     this.socket = io({ query: option });
     this.socket.emit('update adminStats');
     this.socket.emit('get mentor response time');
+    this.socket.emit('get mentor resolution time');
 
     this.socket.on('update or submit ticket', () => {
       return option.role === 'admin' ? this.filterTickets() : this.getTickets(option);
@@ -77,7 +79,9 @@ class App extends React.Component {
 
     this.socket.on('online info', data => this.setState({onlineUserInfo: data}));
 
-    this.socket.on('new mentor response time', data => this.setState({ mentors: data.data}));
+    this.socket.on('new mentor response time', data => this.setState({ mentorResponse: data.data}));
+
+    this.socket.on('new mentor resolution time', data => this.setState({ mentorResolution: data.data}));
 
     this.getTickets(option);
   }
@@ -140,7 +144,6 @@ class App extends React.Component {
         this.socket.emit('refresh');
         this.socket.emit('update adminStats');
         this.socket.emit('get wait time');
-        this.socket.emit('get mentor response time');
       },
       error: (err) => {
         console.log('failed to update ticket');
@@ -206,7 +209,8 @@ class App extends React.Component {
         onlineUserInfo={this.state.onlineUserInfo}
         user={this.state.user} 
         waitTime={this.state.waitTime}
-        mentorResTime={this.state.mentors}/>;
+        mentorResponseTime={this.state.mentorResponse}
+        mentorResolutionTime={this.state.mentorResolution}/>;
       list = <TicketList user={this.state.user} ticketList={this.state.ticketList} updateTickets={this.updateTickets.bind(this)} hasClaimed={this.state.hasClaimed} />;
     }
 

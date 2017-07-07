@@ -74,6 +74,20 @@ module.exports = server => {
         io.emit('new mentor response time', {data});
       });
     });
+
+    socket.on('get mentor resolution time', () => {
+      var data = [];
+      Ticket.findAll().then(tickets => {
+        for (let key in mentors) {
+          let mentorObj = {};
+          var aveResTime = util.computeAvgMentorResolutionTime(tickets, key);
+          mentorObj[key] = aveResTime;
+          data.push(mentorObj);
+        }
+        io.emit('new mentor resolution time', {data});
+      });
+    });
+    
   
     // logic has flaws
     // socket.on('update adminStats', () => {
