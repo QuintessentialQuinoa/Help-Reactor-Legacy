@@ -62,6 +62,19 @@ module.exports = server => {
       io.emit('online info', util.mapInfo(userType));
     });
 
+    socket.on('update tickets per day for every user', () => {
+      User.findAll().then(users => {
+        users.forEach(user => {
+          Ticket.count({ where: { userId: user.id } })
+            .then(ticketCount => {
+              var daysSinceUserCreated = (Date.now() - Date.parse(user.createdAt))/86400000;
+              let newTicketsPerDay = (ticketCount/daysSinceUserCreated).toFixed(2);
+              User.update({ ticketsPerDay: newTicketsPerDay }, { where: { id: user.id }})
+            });
+        });
+      });
+    });
+
     socket.on('get mentor response time', () => {
       var data = [];
       Ticket.findAll().then(tickets => {
@@ -87,7 +100,6 @@ module.exports = server => {
         io.emit('new mentor resolution time', {data});
       });
     });
-    
 
     socket.on('call user', (info) => {
       console.log('Call info: ', info);
@@ -101,14 +113,15 @@ module.exports = server => {
         }
       }
     });
-  
-    // logic has flaws
-    // socket.on('update adminStats', () => {
-    //   Ticket.findAll({ where: { createdAt: { $gt: new Date(new Date() - 24 * 60 * 60 * 1000) } } })
-    //     .then(result => {
-    //       io.emit('new adminStats', util.getAdminStats(result));
-    //     });
-    // });
+
+    socket.on('update tickets per day', (userInfo) => {
+      Ticket.count({ where: { userId: userInfo.id } })
+        .then(ticketCount => {
+          var daysSinceUserCreated = (Date.now() - Date.parse(userInfo.createdAt))/86400000;
+          let newTicketsPerDay = (ticketCount/daysSinceUserCreated).toFixed(2);
+          User.update({ ticketsPerDay: newTicketsPerDay }, { where: { id: userInfo.id }})
+        });
+    });
 
     socket.on('disconnect', socket => {
       if (role === 'student') {
