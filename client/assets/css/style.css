@@ -233,11 +233,13 @@ h6:last-child {
 }
 
 .onlineUserContainer {
-/*  display: flex;
-  width: 100%;
-  height: 100%;
-  justify-content: space-between;
-  flex-direction: column;*/
+  display: flex;
+  flex-direction: column;
+}
+
+.onlineUserEntry {
+  flex: 1 1 auto;
+  padding: 5px;
 }
 
 .modal-label-container {
@@ -251,10 +253,17 @@ h6:last-child {
   padding-bottom: 5px;
 }
 
+.modal-label-null {
+  flex: 1 1 13%;
+  padding-bottom: 5px;
+}
+
 .modal-entry-container {
   display: flex;
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px;
   flex-direction: row;
+  align-items: center;
+  border: 1px solid #999999;
+  border-radius: 4px;
 }
 
 .modal-entry {
@@ -285,4 +294,13 @@ h6:last-child {
 
 .modal-close-btn {
   size: 20px;
+}
+
+.fa-video-camera {
+  width: 70px;
+  height: 50px;
+}
+
+.right {
+  float: right;
 }

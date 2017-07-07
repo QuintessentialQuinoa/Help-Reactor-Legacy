@@ -10,13 +10,13 @@ class OnlineUsers extends React.Component {
     const {handleCall, users, mentorResponseTime, mentorResolutionTime} = this.props;
     return (
       <div className="onlineUserContainer">
-        <div className="modal-label-container">
-          <div className="modal-label-entry"></div>
+        <div className="modal-label-container onlineUserEntry">
+          <div className="modal-label-null"></div>
           <div className="modal-label-entry">Name</div>
           <div className="modal-label-entry">Username</div>
           <div className="modal-label-entry">Avg. Response Time</div>
           <div className="modal-label-entry">Avg. Resolution Time</div>
-          <div className="modal-label-entry"></div>
+          <div className="modal-label-entry right">Video Chat Mentor</div>
         </div>
         {users.map((user, index) => {
           var id = user.id;
