@@ -10,6 +10,7 @@ import Header from './components/header.jsx';
 import AdminDashboard from './components/adminDashboard.jsx';
 import Modal from 'react-bootstrap/lib/Modal';
 import Button from 'react-bootstrap/lib/Button';
+import SetCamera from './components/Camera.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -29,6 +30,8 @@ class App extends React.Component {
       mentorResponse: [],
       mentorResolution: [],
     };
+    window.navigator.getUserMedia = window.navigator.getUserMedia ||
+    window.navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
   }
 
   componentWillMount() {
@@ -90,7 +93,17 @@ class App extends React.Component {
 
     this.socket.on('new mentor resolution time', data => this.setState({ mentorResolution: data.data}));
 
-    this.socket.on('call request', data => console.log(data));
+    this.socket.on('call request', data => {
+      this.setState({ 
+        caller: data,
+        showVideoModal: true
+      });
+      SetCamera((stream) => {
+        this.socket.emit('answer request', stream);
+      });
+    });
+
+
 
     this.socket.on('new tickets per day', data => this.setState({ ticketsPerDay: data }))
 

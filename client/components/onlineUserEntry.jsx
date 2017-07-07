@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 import Button from 'react-bootstrap/lib/Button';
+import SetCamera from './Camera.jsx';
 
 class OnlineUserEntry extends React.Component {
 
@@ -30,28 +31,12 @@ class OnlineUserEntry extends React.Component {
   }
 
   Camera () {
-    return {
-      constraints: {
-        video: true,
-        audio: true
-      },
-      onSuccess: (stream) => {
-        window.stream = stream;
-        var src;
-        if (window.URL) {
-          src = window.URL.createObjectURL(stream);
-        } else {
-          src = stream;
-        }
-        this.setState({
-          stream: src
-        });
-        this.Call(this.props.user, src);
-      },
-      onError: (error) => {
-        console.error('Camera error: ', error);
-      }
-    };
+    return SetCamera((stream) => {
+      this.setState({
+        stream: stream
+      });
+      this.Call(this.props.user, stream);
+    });
   }
 
   CameraModal () {
