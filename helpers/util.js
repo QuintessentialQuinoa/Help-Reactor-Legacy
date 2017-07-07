@@ -13,7 +13,7 @@ var displayAlert = function (message, type) {
   }, 3000);
 };
 
-var connectionCount = function connectionCount(students, mentors, admins) {
+var connectionCount = function (students, mentors, admins) {
   var res = {
     student: Object.keys(students).length,
     mentor: Object.keys(mentors).length,
@@ -120,6 +120,7 @@ module.exports = {
   connectionCount: connectionCount,
   mapInfo: mapInfo,
   computeAvgMentorResTime: computeAvgMentorResTime,
-  computeAvgMentorResolutionTime: computeAvgMentorResolutionTime
+  computeAvgMentorResolutionTime: computeAvgMentorResolutionTime,
+  connectionCount: connectionCount
 };
 

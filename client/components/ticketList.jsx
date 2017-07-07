@@ -4,7 +4,7 @@ import TicketEntry from './ticketEntry.jsx';
 
 const TicketList = ({user, ticketList, updateTickets, hasClaimed, ticketsPerDay}) => (
   <div className="ticket_list">
-    {ticketList.map((ticket, index) => <TicketEntry user={user} ticket={ticket} updateTickets={updateTickets} hasClaimed={hasClaimed} key={index} ticketsPerDay={ticketsPerDay} />)}
+    {ticketList.map((ticket, index) => <TicketEntry user={user} ticket={ticket} updateTickets={updateTickets} hasClaimed={hasClaimed} key={index} />)}
   </div>
 );
 

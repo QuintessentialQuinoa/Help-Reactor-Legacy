@@ -13,6 +13,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      // users: [],
       ticketList: [],
       ticketCategoryList: ['React', 'Socket.IO', 'Recursion', 'Postgres'],
       user: null,
@@ -52,12 +53,14 @@ class App extends React.Component {
     if (!this.state.user) { return; }
 
     let option = {
+      // users: this.state.users,
       id: this.state.user.id,
       role: this.state.user.role,
       username: this.state.user.username,
       firstName: this.state.user.firstName,
       lastName: this.state.user.lastName,
       cohort: this.state.user.cohort,
+      ticketsPerDay: this.state.user.ticketsPerDay,
       avatarUrl: this.state.user.avatarUrl
     };
 
@@ -89,6 +92,8 @@ class App extends React.Component {
     this.socket.on('new tickets per day', data => this.setState({ ticketsPerDay: data }))
 
     this.getTickets(option);
+
+    this.socket.emit('update tickets per day for every user');
   }
 
   getTickets(option) {
@@ -120,6 +125,7 @@ class App extends React.Component {
           success: (response) => {
             this.socket.emit('refresh');
             this.socket.emit('update adminStats');
+            this.socket.emit('update tickets per day', this.state.user);
             document.getElementById('ticket_submission_location').value = '';
             document.getElementById('ticket_submission_description').value = '';
           },
@@ -200,9 +206,6 @@ class App extends React.Component {
     return $('.claim_btn').prop('disabled', false);
   }
 
-
-
-
   render() {
     let user = this.state.user;
     let isAuthenticated = this.state.isAuthenticated;
@@ -225,14 +228,6 @@ class App extends React.Component {
         mentorResolutionTime={this.state.mentorResolution}
         user={this.state.user}
         waitTime={this.state.waitTime}/>;
-      list = <TicketList user={this.state.user} ticketList={this.state.ticketList} updateTickets={this.updateTickets.bind(this)} hasClaimed={this.state.hasClaimed} />;
-      header = <Header
-         getOnlineUsers={this.getOnlineUsers.bind(this)}
-         statistic={this.state.statistic}
-         onlineUsers={this.state.onlineUsers}
-         onlineUserInfo={this.state.onlineUserInfo}
-         user={this.state.user}
-         waitTime={this.state.waitTime}/>;
       list = <TicketList user={this.state.user} ticketList={this.state.ticketList} updateTickets={this.updateTickets.bind(this)} hasClaimed={this.state.hasClaimed} ticketsPerDay={this.state.ticketsPerDay} />;
     }
 

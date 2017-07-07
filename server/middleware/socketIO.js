@@ -62,9 +62,17 @@ module.exports = server => {
       io.emit('online info', util.mapInfo(userType));
     });
 
-    socket.on('update tickets per day', () => {
-
-      //socket.emit('new tickets per day', ticketsPerDay);
+    socket.on('update tickets per day for every user', () => {
+      User.findAll().then(users => {
+        users.forEach(user => {
+          Ticket.count({ where: { userId: user.id } })
+            .then(ticketCount => {
+              var daysSinceUserCreated = (Date.now() - Date.parse(user.createdAt))/86400000;
+              let newTicketsPerDay = (ticketCount/daysSinceUserCreated).toFixed(2);
+              User.update({ ticketsPerDay: newTicketsPerDay }, { where: { id: user.id }})
+            });
+        });
+      });
     });
 
     socket.on('get mentor response time', () => {
@@ -92,6 +100,7 @@ module.exports = server => {
         io.emit('new mentor resolution time', {data});
       });
     });
+<<<<<<< HEAD
     
 
     socket.on('call user', (info) => {
@@ -114,6 +123,17 @@ module.exports = server => {
     //       io.emit('new adminStats', util.getAdminStats(result));
     //     });
     // });
+=======
+
+    socket.on('update tickets per day', (userInfo) => {
+      Ticket.count({ where: { userId: userInfo.id } })
+        .then(ticketCount => {
+          var daysSinceUserCreated = (Date.now() - Date.parse(userInfo.createdAt))/86400000;
+          let newTicketsPerDay = (ticketCount/daysSinceUserCreated).toFixed(2);
+          User.update({ ticketsPerDay: newTicketsPerDay }, { where: { id: userInfo.id }})
+        });
+    });
+>>>>>>> Add users tickets per hour data.  It initiates on initial rendering and updated on ticket submission."
 
     socket.on('disconnect', socket => {
       if (role === 'student') {

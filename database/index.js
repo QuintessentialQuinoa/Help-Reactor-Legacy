@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
-let db = null; 
+let db = null;
 
 if (process.env.DATABASE_URL) {
   db = new Sequelize(process.env.DATABASE_URL);
@@ -36,7 +36,8 @@ const User = db.define('user', {
   lastName: Sequelize.STRING,
   username: { type: Sequelize.STRING, allowNull: false, unique: true },
   role: { type: Sequelize.ENUM('student', 'mentor', 'admin'), allowNull: false },
-  cohort: Sequelize.STRING
+  cohort: Sequelize.STRING,
+  ticketsPerDay: Sequelize.STRING
 });
 
 User.hasMany(Ticket);
