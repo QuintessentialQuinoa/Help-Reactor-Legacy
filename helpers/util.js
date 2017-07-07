@@ -82,7 +82,7 @@ var mapInfo = function(users) {
   return result;
 };
 
-var computeMentorTimeAverage = function(tickets) {
+var computeMentorResTimeAverage = function(tickets) {
   return tickets.reduce(function (acc, curr) {
     var date = Date.parse(curr.claimedAt);
     var wait = date - Date.parse(curr.createdAt);
@@ -93,7 +93,24 @@ var computeMentorTimeAverage = function(tickets) {
 var computeAvgMentorResTime = function(tickets, id) {
   var mentorTickets = tickets.filter(function (ticket) {return (ticket.status == 'Closed' && ticket.claimedBy == id) || (ticket.status == 'Claimed' && ticket.claimedBy == id)});
   var numTickets = mentorTickets.length;
-  var rawTotalTime = computeMentorTimeAverage(mentorTickets);
+  var rawTotalTime = computeMentorResTimeAverage(mentorTickets);
+  var mentorAveResTime = new Date(rawTotalTime / numTickets).getUTCMinutes()
+  return mentorAveResTime;
+};
+
+
+var computeMentorResolutionTimeAverage = function(tickets) {
+  return tickets.reduce(function (acc, curr) {
+    var date = Date.parse(curr.closedAt);
+    var resolution = date - Date.parse(curr.claimedAt);
+    return acc + resolution;
+  }, 0);
+};
+
+var computeAvgMentorResolutionTime = function(tickets, id) {
+  var mentorTickets = tickets.filter(function (ticket) {return ticket.status == 'Closed' && ticket.claimedBy == id});
+  var numTickets = mentorTickets.length;
+  var rawTotalTime = computeMentorResolutionTimeAverage(mentorTickets);
   var mentorAveResTime = new Date(rawTotalTime / numTickets).getUTCMinutes()
   return mentorAveResTime;
 };
@@ -103,5 +120,6 @@ module.exports = {
   computeAvgWaitTime: computeAvgWaitTime,
   connectionCount: connectionCount,
   mapInfo: mapInfo,
-  computeAvgMentorResTime: computeAvgMentorResTime
+  computeAvgMentorResTime: computeAvgMentorResTime,
+  computeAvgMentorResolutionTime: computeAvgMentorResolutionTime
 };

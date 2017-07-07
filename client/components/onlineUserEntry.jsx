@@ -1,7 +1,6 @@
 import React from 'react';
 
-const OnlineUserEntry = ({user, resTime}) => {
-  console.log(user);
+const OnlineUserEntry = ({user, responseTime, resolutionTime}) => {
   return (
     <div className="modal-entry-container">
     <img className="modal-entry-img" src={user.avatarUrl} />
@@ -11,7 +10,8 @@ const OnlineUserEntry = ({user, resTime}) => {
       </a>
     </div>
     <div className="modal-entry-username modal-entry">{user.username}</div>
-    <div className="modal-entry-username modal-entry">{resTime} Minutes</div>
+    <div className="modal-entry-username modal-entry">{responseTime} Minutes</div>
+    <div className="modal-entry-username modal-entry">{resolutionTime} Minutes</div>
     <button className="modal-entry-video-chat modal-entry fa fa-video-camera"></button>
     </div>
   );

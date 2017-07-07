@@ -7,7 +7,7 @@ class OnlineUsers extends React.Component {
   }
 
   render () {
-    const {users, mentorResTime} = this.props;
+    const {users, mentorResponseTime, mentorResolutionTime} = this.props;
     return (
       <div className="onlineUserContainer">
         <div className="modal-label-container">
@@ -15,6 +15,7 @@ class OnlineUsers extends React.Component {
           <div className="modal-label-entry">Name</div>
           <div className="modal-label-entry">Username</div>
           <div className="modal-label-entry">Avg. Response Time</div>
+          <div className="modal-label-entry">Avg. Resolution Time</div>
           <div className="modal-label-entry"></div>
         </div>
         {users.map((user, index) => {
@@ -22,14 +23,15 @@ class OnlineUsers extends React.Component {
           var findMentor = (mentor) => {
             return Object.keys(mentor)[0] === id;
           };
-          var mentorObj = mentorResTime.find(findMentor);
-          var resTime = mentorObj[Object.keys(mentorObj)[0]];
-          return <OnlineUserEntry key={index} user={user} resTime={resTime}/>;
+          var mentorResponse = mentorResponseTime.find(findMentor);
+          var mentorResolution = mentorResolutionTime.find(findMentor);
+          var responseTime = mentorResponse[Object.keys(mentorResponse)[0]];
+          var resolutionTime = mentorResolution[Object.keys(mentorResolution)[0]];
+          return <OnlineUserEntry key={index} user={user} responseTime={responseTime} resolutionTime={resolutionTime}/>;
         })}
       </div>
     );
   }
 };
-
 
 export default OnlineUsers;

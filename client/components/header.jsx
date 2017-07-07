@@ -3,7 +3,6 @@ import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 import Button from 'react-bootstrap/lib/Button';
 import OnlineUsers from './onlineUsers.jsx';
-import OnlineUserEntry from './onlineUserEntry.jsx';
 
 class Header extends React.Component {
   constructor (props) {
@@ -62,12 +61,13 @@ class Header extends React.Component {
         </div>
         <Modal 
           show={this.state.showModal} 
-          onHide={this.closeModal}>
+          onHide={this.closeModal}
+          bsSize='lg'>
           <Modal.Header closeButton>
             <Modal.Title>Online {this.state.modalUserType.charAt(0).toUpperCase() + this.state.modalUserType.slice(1)}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <OnlineUsers users={this.props.onlineUserInfo} mentorResTime={this.props.mentorResTime}/>
+            <OnlineUsers users={this.props.onlineUserInfo} mentorResponseTime={this.props.mentorResponseTime} mentorResolutionTime={this.props.mentorResolutionTime} />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.closeModal}>Close</Button>
