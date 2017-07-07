@@ -39,5 +39,5 @@ bower_components/
 # Environment File
 .env
 
-
+dump.rdb
 .eslintignore
