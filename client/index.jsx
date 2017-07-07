@@ -32,6 +32,8 @@ class App extends React.Component {
     };
     window.navigator.getUserMedia = window.navigator.getUserMedia ||
     window.navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
+    this.closeVideoModal = this.closeVideoModal.bind(this);
+    this.openVideoModal = this.openVideoModal.bind(this);
   }
 
   componentWillMount() {
@@ -92,7 +94,7 @@ class App extends React.Component {
     this.socket.on('new mentor resolution time', data => this.setState({ mentorResolution: data.data}));
 
     this.socket.on('call request', data => {
-      this.setState({ 
+      this.setState({
         caller: data,
         showVideoModal: true
       });
@@ -252,14 +254,14 @@ class App extends React.Component {
           </Modal.Body>
           <Modal.Footer>
             <Button>Accept</Button>
-            <Button onClick={this.closeVideoModal.bind(this)}>Decline</Button>
+            <Button onClick={this.closeVideoModal}>Decline</Button>
           </Modal.Footer>
         </Modal>;
 
       modalButton = <Button
           bsStyle="primary"
           bsSize="large"
-          onClick={this.openVideoModal.bind(this)}>
+          onClick={this.openVideoModal}>
           Test Modal
         </Button>;
 

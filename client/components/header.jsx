@@ -35,7 +35,7 @@ class Header extends React.Component {
     if (this.props.user && (this.props.user.role === 'admin' || this.props.user.role === 'mentor')) {
       welcome =
         <h4>
-          There are currently 
+          There are currently
           <span onClick={ () => this.openModal('mentors') }> {this.props.onlineUsers.mentor} mentors
           </span> and
           <span onClick={ () => this.openModal('students') }> {this.props.onlineUsers.student} students
@@ -52,26 +52,26 @@ class Header extends React.Component {
           The estimated wait time is <span>{this.props.waitTime} minutes</span>.
         </h4>;
     }
-    
+
     return (
       <div className="page_header">
         <div className="container">
           <h3>Welcome back {this.props.user.firstName}!</h3>
           {welcome}
         </div>
-        <Modal 
-          show={this.state.showModal} 
+        <Modal
+          show={this.state.showModal}
           onHide={this.closeModal}
           bsSize='lg'>
           <Modal.Header closeButton>
             <Modal.Title>Online {this.state.modalUserType.charAt(0).toUpperCase() + this.state.modalUserType.slice(1)}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <OnlineUsers 
+            <OnlineUsers
               handleCall={this.props.handleCall}
-              users={this.props.onlineUserInfo} 
-              mentorResponseTime={this.props.mentorResponseTime} 
-              mentorResolutionTime={this.props.mentorResolutionTime} 
+              users={this.props.onlineUserInfo}
+              mentorResponseTime={this.props.mentorResponseTime}
+              mentorResolutionTime={this.props.mentorResolutionTime}
               modalUserType={this.state.modalUserType}/>
           </Modal.Body>
           <Modal.Footer>
