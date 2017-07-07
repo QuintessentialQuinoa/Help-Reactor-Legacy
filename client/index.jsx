@@ -8,12 +8,15 @@ import Alert from './components/alert.jsx';
 import Nav from './components/nav.jsx';
 import Header from './components/header.jsx';
 import AdminDashboard from './components/adminDashboard.jsx';
+import Modal from 'react-bootstrap/lib/Modal';
+import Button from 'react-bootstrap/lib/Button';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       // users: [],
+      showVideoModal: false,
       ticketList: [],
       ticketCategoryList: ['React', 'Socket.IO', 'Recursion', 'Postgres'],
       user: null,
@@ -206,6 +209,18 @@ class App extends React.Component {
     return $('.claim_btn').prop('disabled', false);
   }
 
+  closeVideoModal() {
+    this.setState({
+      showVideoModal: false
+    });
+  }
+
+  openVideoModal() {
+    this.setState({
+      showVideoModal: true
+    });
+  }
+
   render() {
     let user = this.state.user;
     let isAuthenticated = this.state.isAuthenticated;
@@ -213,9 +228,35 @@ class App extends React.Component {
     let header = null;
     let main = null;
     let list = null;
+    let videoModal = null;
+    let modalButton = null;
 
     if (isAuthenticated) {
       nav = <Nav user={this.state.user} />;
+
+      videoModal = <Modal
+          show={this.state.showVideoModal}
+          onHide={this.closeVideoModal}
+          bsSize='lg'>
+          <Modal.Header closeButton>
+            <Modal.Title>Incoming Video Call</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+              Video Here
+          </Modal.Body>
+          <Modal.Footer>
+            <Button>Accept</Button>
+            <Button onClick={this.closeVideoModal.bind(this)}>Decline</Button>
+          </Modal.Footer>
+        </Modal>;
+
+      modalButton = <Button
+          bsStyle="primary"
+          bsSize="large"
+          onClick={this.openVideoModal.bind(this)}>
+          Test Modal
+        </Button>;
+
       header = <Header
         handleCall={this.handleCall.bind(this)}
         getOnlineUsers={this.getOnlineUsers.bind(this)}
@@ -246,6 +287,8 @@ class App extends React.Component {
       <div>
         <Alert />
         {nav}
+        {modalButton}
+        {videoModal}
         {header}
         <div className="container">
           {main}
