@@ -7,7 +7,7 @@ class OnlineUsers extends React.Component {
   }
 
   render () {
-    const {users, mentorResponseTime, mentorResolutionTime} = this.props;
+    const {handleCall, users, mentorResponseTime, mentorResolutionTime} = this.props;
     return (
       <div className="onlineUserContainer">
         <div className="modal-label-container">
@@ -27,7 +27,7 @@ class OnlineUsers extends React.Component {
           var mentorResolution = mentorResolutionTime.find(findMentor);
           var responseTime = mentorResponse[Object.keys(mentorResponse)[0]];
           var resolutionTime = mentorResolution[Object.keys(mentorResolution)[0]];
-          return <OnlineUserEntry key={index} user={user} responseTime={responseTime} resolutionTime={resolutionTime}/>;
+          return <OnlineUserEntry handleCall={handleCall} key={index} user={user} responseTime={responseTime} resolutionTime={resolutionTime}/>;
         })}
       </div>
     );
