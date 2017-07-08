@@ -31,7 +31,7 @@ module.exports.users = [
     "firstName": "Pablo",
     "lastName": "Boserman",
     "username": "pboserman",
-    "role": "admin",
+    "role": "mentor",
     "cohort": "HRSF-77"
   },
   {
@@ -45,6 +45,13 @@ module.exports.users = [
     "firstName": "Jeff",
     "lastName": "Shindelus",
     "username": "shindelus",
+    "role": "mentor",
+    "cohort": "HRSF-77"
+  },
+  {
+    "firstName": "Julia",
+    "lastName": "Wong",
+    "username": "jwong619",
     "role": "student",
     "cohort": "HRSF-77"
   },
