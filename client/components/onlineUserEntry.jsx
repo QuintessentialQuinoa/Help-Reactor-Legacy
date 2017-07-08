@@ -56,7 +56,7 @@ class OnlineUserEntry extends React.Component {
     let ableToVideoChat = null;
 
     // TODO: CHANGE BACK AFTER TESTING
-    if (true || (this.props.appUser.role === 'mentor' || (this.props.appUser.role === 'student' && this.props.user.role === 'student')) && (this.props.user.id !== this.props.appUser.id.toString())) {
+    if ((this.props.appUser.role === 'mentor' || (this.props.appUser.role === 'student' && this.props.user.role === 'student')) && (this.props.user.id !== this.props.appUser.id.toString())) {
       ableToVideoChat = <button onClick={this.toggleCamera} className="btn btn-success modal-entry-video-chat modal-entry fa fa-video-camera"></button>;
     } else {
       ableToVideoChat = <button onClick={this.toggleCamera} className="disabled btn btn-danger modal-entry-video-chat modal-entry fa fa-video-camera" disabled></button>;
