@@ -3,7 +3,6 @@ import Modal from 'react-bootstrap/lib/Modal';
 import Button from 'react-bootstrap/lib/Button';
 
 class OnlineUserEntry extends React.Component {
-
   constructor (props) {
     super(props);
     this.state = {

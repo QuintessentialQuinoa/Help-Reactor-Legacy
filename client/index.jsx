@@ -268,7 +268,8 @@ class App extends React.Component {
           </iframe>;
       }
 
-      videoModal = <Modal
+      videoModal = 
+        <Modal
           show={this.state.showVideoModal}
           onHide={this.closeVideoModal}
           bsSize='lg'>
@@ -284,16 +285,18 @@ class App extends React.Component {
           </Modal.Footer>
         </Modal>;
 
-      header = <Header
-        handleCall={this.handleCall.bind(this)}
-        getOnlineUsers={this.getOnlineUsers.bind(this)}
-        statistic={this.state.statistic}
-        onlineUsers={this.state.onlineUsers}
-        onlineUserInfo={this.state.onlineUserInfo}
-        user={this.state.user}
-        waitTime={this.state.waitTime}
-        mentorResponseTime={this.state.mentorResponse}
-        mentorResolutionTime={this.state.mentorResolution}/>;
+      header = 
+        <Header
+          handleCall={this.handleCall.bind(this)}
+          getOnlineUsers={this.getOnlineUsers.bind(this)}
+          statistic={this.state.statistic}
+          onlineUsers={this.state.onlineUsers}
+          onlineUserInfo={this.state.onlineUserInfo}
+          user={this.state.user}
+          waitTime={this.state.waitTime}
+          mentorResponseTime={this.state.mentorResponse}
+          mentorResolutionTime={this.state.mentorResolution}
+        />;
 
       list = <TicketList user={this.state.user} ticketList={this.state.ticketList} updateTickets={this.updateTickets.bind(this)} hasClaimed={this.state.hasClaimed} />;
     }

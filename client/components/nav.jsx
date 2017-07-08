@@ -12,7 +12,6 @@ const Nav = ({statistic, user}) => (
           <img src={user.avatarUrl} />
         </div>
       </div>
-
     </div>
   </nav>
 );
