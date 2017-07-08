@@ -10,7 +10,7 @@ class OnlineUsers extends React.Component {
     const {remoteStreamURL, handleCall, users, mentorResponseTime, mentorResolutionTime, modalUserType} = this.props;
     let onlineUsers = null;
     if (modalUserType === 'mentors') {
-      onlineUsers = 
+      onlineUsers =
         <div className="onlineUserContainer">
           <div className="modal-label-container onlineUserEntry">
             <div className="modal-label-null"></div>
@@ -29,11 +29,18 @@ class OnlineUsers extends React.Component {
             var mentorResolution = mentorResolutionTime.find(findMentor);
             var responseTime = mentorResponse[Object.keys(mentorResponse)[0]];
             var resolutionTime = mentorResolution[Object.keys(mentorResolution)[0]];
-            return <OnlineUserEntry modalUserType={modalUserType} handleCall={handleCall} key={index} user={user} responseTime={responseTime} resolutionTime={resolutionTime}/>;
+            return <OnlineUserEntry
+              modalUserType={modalUserType}
+              handleCall={handleCall}
+              key={index}
+              user={user}
+              responseTime={responseTime}
+              resolutionTime={resolutionTime}
+              appUser={this.props.appUser}/>;
           })}
         </div>;
     } else if (modalUserType === 'students') {
-      onlineUsers = 
+      onlineUsers =
         <div className="onlineUserContainer">
           <div className="modal-label-container onlineUserEntry">
             <div className="modal-label-null"></div>
@@ -50,17 +57,17 @@ class OnlineUsers extends React.Component {
             var mentorResolution = mentorResolutionTime.find(findMentor);
             var responseTime = mentorResponse[Object.keys(mentorResponse)[0]];
             var resolutionTime = mentorResolution[Object.keys(mentorResolution)[0]];
-            return <OnlineUserEntry 
+            return <OnlineUserEntry
               remoteStreamURL={remoteStreamURL}
-              modalUserType={modalUserType} 
-              handleCall={handleCall} 
-              key={index} 
-              user={user} 
-              responseTime={responseTime} 
+              modalUserType={modalUserType}
+              handleCall={handleCall}
+              key={index}
+              user={user}
+              responseTime={responseTime}
               resolutionTime={resolutionTime}/>;
           })}
         </div>;
-    } 
+    }
     return (
       <div>
         {onlineUsers}
