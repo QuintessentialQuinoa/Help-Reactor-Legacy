@@ -57,9 +57,11 @@ module.exports = server => {
         });
     });
 
-    socket.on('get online users', (type) => {
-      var userType = type === 'students' ? students : (type === 'mentors' ? mentors : {});
-      io.emit('online info', util.mapInfo(userType));
+    socket.on('get online users', () => {
+      io.emit('online info', {
+        students: util.mapInfo(students),
+        mentors: util.mapInfo(mentors)
+      });
     });
 
     socket.on('update tickets per day for every user', () => {
