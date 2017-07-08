@@ -7,7 +7,7 @@ class OnlineUsers extends React.Component {
   }
 
   render () {
-    const {remoteStreamURL, handleCall, users, mentorResponseTime, mentorResolutionTime, modalUserType} = this.props;
+    const {appUser, remoteStreamURL, handleCall, users, mentorResponseTime, mentorResolutionTime, modalUserType} = this.props;
     let onlineUsers = null;
     if (modalUserType === 'mentors') {
       onlineUsers =
@@ -36,7 +36,7 @@ class OnlineUsers extends React.Component {
               user={user}
               responseTime={responseTime}
               resolutionTime={resolutionTime}
-              appUser={this.props.appUser}/>;
+              appUser={appUser}/>;
           })}
         </div>;
     } else if (modalUserType === 'students') {
@@ -49,22 +49,13 @@ class OnlineUsers extends React.Component {
             <div className="modal-label-entry right">Video Chat Mentor</div>
           </div>
           {users.map((user, index) => {
-            var id = user.id;
-            var findMentor = (mentor) => {
-              return Object.keys(mentor)[0] === id;
-            };
-            var mentorResponse = mentorResponseTime.find(findMentor);
-            var mentorResolution = mentorResolutionTime.find(findMentor);
-            var responseTime = mentorResponse[Object.keys(mentorResponse)[0]];
-            var resolutionTime = mentorResolution[Object.keys(mentorResolution)[0]];
             return <OnlineUserEntry
               remoteStreamURL={remoteStreamURL}
               modalUserType={modalUserType}
               handleCall={handleCall}
               key={index}
               user={user}
-              responseTime={responseTime}
-              resolutionTime={resolutionTime}/>;
+              appUser={appUser}/>;
           })}
         </div>;
     }

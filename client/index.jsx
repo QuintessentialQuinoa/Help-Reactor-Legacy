@@ -268,7 +268,8 @@ class App extends React.Component {
       nav = <Nav user={this.state.user} />;
 
       if (this.state.acceptVideo) {
-        video = <video src={this.state.remoteStreamURL} autoPlay></video>;
+        // video = <video src={this.state.remoteStreamURL} autoPlay></video>;
+        video = <iframe width='800' height='640' src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=656adf00-f9d6-4a5c-b7c2-6c04a2b9eff0&iframe=true&room=${this.videoRoom}`}></iframe>;
       }
 
       videoModal = <Modal

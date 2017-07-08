@@ -1,7 +1,6 @@
 import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 import Button from 'react-bootstrap/lib/Button';
-import SetCamera from './Camera.jsx';
 
 class OnlineUserEntry extends React.Component {
 
@@ -13,17 +12,18 @@ class OnlineUserEntry extends React.Component {
       showCamera: false
     };
     this.toggleCamera = this.toggleCamera.bind(this);
+    this.onlineUser = {
+         id: this.props.user.id,
+         role: this.props.user.role,
+         name: `${this.props.user.firstName} ${this.props.user.lastName}`
+    };
+    this.videoRoom = this.onlineUser.id+this.onlineUser.role;
   }
 
   toggleCamera () {
     if (!this.state.showCamera) {
-      var camera = this.Camera();
-      navigator.mediaDevices.getUserMedia(camera.constraints)
-      .then(camera.onSuccess)
-      .catch(camera.onError);
-      // navigator.getUserMedia(camera.constraints, camera.onSuccess, camera.onError);
-    } else {
-      this.state.localStream.getTracks().forEach(track => track.stop());
+      this.Call(this.onlineUser, this.videoRoom);
+      // var connection = new PeerConnection(`${this.onlineUser.id} ${this.onlineUser.name}`);
     }
     this.setState((prevState) => {
       return { showCamera: !prevState.showCamera };
@@ -32,20 +32,6 @@ class OnlineUserEntry extends React.Component {
 
   Call (user, myStream) {
     this.props.handleCall(user, myStream);
-  }
-
-  Camera () {
-    return SetCamera((stream) => {
-      this.setState({
-        localStream: stream,
-        localStreamURL: window.URL.createObjectURL(stream)
-      });
-      this.Call({
-        id: this.props.user.id,
-        role: this.props.user.role,
-        name: `${this.props.user.firstName} ${this.props.user.lastName}`
-      }, this.state.localStreamURL);
-    });
   }
 
   CameraModal () {
@@ -58,7 +44,11 @@ class OnlineUserEntry extends React.Component {
           <Modal.Title>Video Chat</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <video src={!!this.props.remoteStreamURL ? this.props.remoteStreamURL : this.state.localStreamURL} autoPlay></video>
+            <iframe 
+            width='800' 
+            height='640'
+            src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=656adf00-f9d6-4a5c-b7c2-6c04a2b9eff0&iframe=true&room=${this.videoRoom}`}>
+            </iframe>     
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.toggleCamera}>Close</Button>
