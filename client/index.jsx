@@ -16,14 +16,16 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      // users: [],
       showVideoModal: false,
       acceptVideo: false,
       ticketList: [],
       ticketCategoryList: ['React', 'Socket.IO', 'Recursion', 'Postgres'],
       user: null,
       isAuthenticated: false,
-      caller: { user: { firstName: 'null' }},
+      caller: {},
+      remoteStreamURL: '',
+      localAnswerStream: {},
+      answerData: {},
       onlineUsers: {},
       onlineUserInfo: [],
       statistic: {},
@@ -96,14 +98,20 @@ class App extends React.Component {
     this.socket.on('new mentor resolution time', data => this.setState({ mentorResolution: data.data}));
 
     this.socket.on('call request', data => {
-      this.setState({
-        caller: data,
+      this.setState({ 
+        caller: data.caller,
+        remoteStreamURL: data.remoteStreamURL,
         showVideoModal: true
       });
       SetCamera((stream) => {
-        this.socket.emit('answer request', stream);
+        var response = data;
+        data.remoteStreamURL = window.URL.createObjectURL(stream);
+        this.setState( { localAnswerStream: stream } );
+        this.socket.emit('answer request', response);
       });
     });
+
+    this.socket.on('answer', (data) => this.setState({ answerData: data }));
 
 
 
@@ -155,8 +163,14 @@ class App extends React.Component {
     this.socket.emit('get online users', userType);
   }
 
-  handleCall(user, stream) {
-    this.socket.emit('call user', {user, stream});
+  handleCall(receiver, localStream) {
+    var remoteStreamURL = localStream;
+    var caller = {
+      id: this.state.user.id,
+      role: this.state.user.role,
+      name: `${this.state.user.firstName} ${this.state.user.lastName}`
+    }
+    this.socket.emit('call user', {receiver, caller, remoteStreamURL});
   }
 
   updateTickets(data) {
@@ -253,7 +267,7 @@ class App extends React.Component {
       nav = <Nav user={this.state.user} />;
 
       if (this.state.acceptVideo) {
-        video = <video src={this.state.caller.stream} autoPlay></video>;
+        video = <video src={this.state.remoteStreamURL} autoPlay></video>;
       }
 
       videoModal = <Modal
@@ -261,7 +275,7 @@ class App extends React.Component {
           onHide={this.closeVideoModal}
           bsSize='lg'>
           <Modal.Header closeButton>
-            <Modal.Title>Incoming Video Call From {this.state.caller.user.firstName}</Modal.Title>
+            <Modal.Title>Incoming Video Call From {this.state.caller ? this.state.caller.name : ''}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
               {video}
@@ -273,6 +287,7 @@ class App extends React.Component {
         </Modal>;
 
       header = <Header
+        remoteStreamURL={!!this.state.localAnswerStream ? this.state.localAnswerStream.remoteStreamURL : ''}
         handleCall={this.handleCall.bind(this)}
         getOnlineUsers={this.getOnlineUsers.bind(this)} 
         statistic={this.state.statistic} 

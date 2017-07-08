@@ -8,7 +8,8 @@ class OnlineUserEntry extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      stream: '',
+      localStream: {},
+      localStreamURL: '',
       showCamera: false
     };
     this.toggleCamera = this.toggleCamera.bind(this);
@@ -17,9 +18,12 @@ class OnlineUserEntry extends React.Component {
   toggleCamera () {
     if (!this.state.showCamera) {
       var camera = this.Camera();
-      navigator.getUserMedia(camera.constraints, camera.onSuccess, camera.onError);
+      navigator.mediaDevices.getUserMedia(camera.constraints)
+      .then(camera.onSuccess)
+      .catch(camera.onError);
+      // navigator.getUserMedia(camera.constraints, camera.onSuccess, camera.onError);
     } else {
-      console.log(this.state.stream);
+      this.state.localStream.getTracks().forEach(track => track.stop());
     }
     this.setState((prevState) => {
       return { showCamera: !prevState.showCamera };
@@ -33,9 +37,14 @@ class OnlineUserEntry extends React.Component {
   Camera () {
     return SetCamera((stream) => {
       this.setState({
-        stream: stream
+        localStream: stream,
+        localStreamURL: window.URL.createObjectURL(stream)
       });
-      this.Call(this.props.user, stream);
+      this.Call({
+        id: this.props.user.id,
+        role: this.props.user.role,
+        name: `${this.props.user.firstName} ${this.props.user.lastName}`
+      }, this.state.localStreamURL);
     });
   }
 
@@ -49,7 +58,7 @@ class OnlineUserEntry extends React.Component {
           <Modal.Title>Video Chat</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <video src={this.state.stream} autoPlay></video>
+            <video src={!!this.props.remoteStreamURL ? this.props.remoteStreamURL : this.state.localStreamURL} autoPlay></video>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.toggleCamera}>Close</Button>

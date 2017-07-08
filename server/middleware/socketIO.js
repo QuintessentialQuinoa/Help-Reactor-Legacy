@@ -102,10 +102,19 @@ module.exports = server => {
     });
 
     socket.on('call user', (info) => {
-      if (info.user.role === 'student') {
-        students[info.user.id].forEach(socket => socket.emit('call request', info));
-      } else if (info.user.role === 'mentor') {
-        mentors[info.user.id].forEach(socket => socket.emit('call request', info));
+      console.log('info: ', info);
+      if (info.receiver.role === 'student') {
+        students[info.receiver.id].forEach(socket => socket.emit('call request', info));
+      } else if (info.receiver.role === 'mentor') {
+        mentors[info.receiver.id].forEach(socket => socket.emit('call request', info));
+      }
+    });
+
+    socket.on('answer request', (info) => {
+      if (info.caller.role === 'student') {
+        students[info.caller.id].forEach(socket => socket.emit('answer', info));
+      } else if (info.caller.role === 'mentor') {
+        mentors[info.caller.id].forEach(socket => socket.emit('answer', info));
       }
     });
 
@@ -117,6 +126,7 @@ module.exports = server => {
           User.update({ ticketsPerDay: newTicketsPerDay }, { where: { id: userInfo.id }})
         });
     });
+
 
     socket.on('disconnect', socket => {
       if (role === 'student') {
