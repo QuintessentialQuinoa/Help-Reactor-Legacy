@@ -299,7 +299,7 @@ h6:last-child {
   size: 20px;
 }
 
-.fa-video-camera {
+.modal-entry-container > .fa-video-camera {
   width: 70px;
   height: 50px;
 }
@@ -322,4 +322,27 @@ h6:last-child {
 
 input:focus, button:focus {
   outline: none;
+}
+
+.onlineUserContainer {
+  margin: 5px;
+}
+
+.modalBodySize {
+  height: 750px;
+  width: 900px;
+  display: flex;
+}
+
+iframe {
+  justify-content: center;
+  height: 95%;
+  width: 95%;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  margin: 20px;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }

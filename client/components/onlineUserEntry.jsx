@@ -39,10 +39,9 @@ class OnlineUserEntry extends React.Component {
           <Modal.Header closeButton>
           <Modal.Title>Video Chat</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <iframe
-            width='800'
-            height='640'
+          <Modal.Body bsClass="modalBodySize">
+            <iframe 
+            scrolling='no'
             src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.videoRoom}`}>
             </iframe>     
           </Modal.Body>
@@ -58,7 +57,7 @@ class OnlineUserEntry extends React.Component {
     let ableToVideoChat = null;
 
     // TODO: CHANGE BACK AFTER TESTING
-    if ((this.props.appUser.role === 'mentor' || (this.props.appUser.role === 'student' && this.props.user.role === 'student')) && (this.props.user.id !== this.props.appUser.id.toString())) {
+    if (true || (this.props.appUser.role === 'mentor' || (this.props.appUser.role === 'student' && this.props.user.role === 'student')) && (this.props.user.id !== this.props.appUser.id.toString())) {
       ableToVideoChat = <button onClick={this.toggleCamera} className="btn btn-success modal-entry-video-chat modal-entry fa fa-video-camera"></button>;
     } else {
       ableToVideoChat = <button onClick={this.toggleCamera} className="disabled btn btn-danger modal-entry-video-chat modal-entry fa fa-video-camera" disabled></button>;

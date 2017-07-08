@@ -255,12 +255,17 @@ class App extends React.Component {
     let videoModal = null;
     let modalButton = null;
     let video = null;
+    let buttons = null;
 
     if (isAuthenticated) {
       nav = <Nav user={this.state.user} />;
 
       if (this.state.acceptVideo) {
-        video = <iframe width='800' height='640' src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.state.roomName}`}></iframe>;
+        video = 
+          <iframe 
+            scrolling='no' 
+            src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.state.roomName}`}>
+          </iframe>;
       }
 
       videoModal = <Modal
@@ -270,8 +275,8 @@ class App extends React.Component {
           <Modal.Header closeButton>
             <Modal.Title>Incoming Video Call From {this.state.caller ? this.state.caller.name : ''}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-              {video}
+          <Modal.Body bsClass="modalBodySize">
+            {video}
           </Modal.Body>
           <Modal.Footer>
             <Button className="btn btn-success fa fa-phone" onClick={this.acceptIncomingVideo}></Button>
@@ -308,7 +313,6 @@ class App extends React.Component {
       <div>
         <Alert />
         {nav}
-        {modalButton}
         {videoModal}
         {header}
         <div className="container">
