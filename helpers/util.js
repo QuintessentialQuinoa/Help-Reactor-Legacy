@@ -94,7 +94,7 @@ var computeAvgMentorResponseTime = function(tickets, id) {
   var mentorTickets = tickets.filter(function (ticket) {return (ticket.status == 'Closed' && ticket.claimedBy == id) || (ticket.status == 'Claimed' && ticket.claimedBy == id)});
   var numTickets = mentorTickets.length;
   var rawTotalTime = computeMentorResponseTimeAverage(mentorTickets);
-  var mentorAveResTime = new Date(rawTotalTime / numTickets).getUTCMinutes()
+  var mentorAveResTime = new Date(rawTotalTime / numTickets).getUTCMinutes();
   return mentorAveResTime;
 };
 
@@ -110,7 +110,7 @@ var computeAvgMentorResolutionTime = function(tickets, id) {
   var mentorTickets = tickets.filter(function (ticket) {return ticket.status == 'Closed' && ticket.claimedBy == id});
   var numTickets = mentorTickets.length;
   var rawTotalTime = computeMentorResolutionTimeAverage(mentorTickets);
-  var mentorAveResTime = new Date(rawTotalTime / numTickets).getUTCMinutes()
+  var mentorAveResTime = new Date(rawTotalTime / numTickets).getUTCMinutes();
   return mentorAveResTime;
 };
 

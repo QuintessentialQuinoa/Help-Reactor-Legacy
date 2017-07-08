@@ -1,5 +1,4 @@
 import React from 'react';
-//import Modal from 'react-modal';
 import Modal from 'react-bootstrap/lib/Modal';
 import Button from 'react-bootstrap/lib/Button';
 import OnlineUsers from './onlineUsers.jsx';
@@ -66,7 +65,8 @@ class Header extends React.Component {
         <Modal
           show={this.state.showModal}
           onHide={this.closeModal}
-          bsSize='lg'>
+          bsSize='lg'
+        >
           <Modal.Header closeButton>
             <Modal.Title>Online {this.state.modalUserType.charAt(0).toUpperCase() + this.state.modalUserType.slice(1)}</Modal.Title>
           </Modal.Header>
@@ -77,7 +77,8 @@ class Header extends React.Component {
               mentorResponseTime={this.props.mentorResponseTime}
               mentorResolutionTime={this.props.mentorResolutionTime}
               modalUserType={this.state.modalUserType}
-              appUser={this.props.user}/>
+              appUser={this.props.user}
+            />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.closeModal}>Close</Button>

@@ -9,6 +9,7 @@ class OnlineUsers extends React.Component {
   render () {
     const {appUser, remoteStreamURL, handleCall, users, mentorResponseTime, mentorResolutionTime, modalUserType} = this.props;
     let onlineUsers = null;
+    
     if (modalUserType === 'mentors') {
       onlineUsers =
         <div className="onlineUserContainer">
@@ -60,6 +61,7 @@ class OnlineUsers extends React.Component {
           })}
         </div>;
     }
+
     return (
       <div>
         {onlineUsers}

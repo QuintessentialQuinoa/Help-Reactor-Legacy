@@ -255,26 +255,32 @@ class App extends React.Component {
     let videoModal = null;
     let modalButton = null;
     let video = null;
+    let buttons = null;
 
     if (isAuthenticated) {
       nav = <Nav user={this.state.user} />;
 
       if (this.state.acceptVideo) {
-        video = <iframe width='800' height='640' src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.state.roomName}`}></iframe>;
+        video = 
+          <iframe 
+            scrolling='no' 
+            src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.state.roomName}`}>
+          </iframe>;
       }
 
-      videoModal = <Modal
+      videoModal = 
+        <Modal
           show={this.state.showVideoModal}
           onHide={this.closeVideoModal}
           bsSize='lg'>
           <Modal.Header closeButton>
             <Modal.Title>Incoming Video Call From {this.state.caller ? this.state.caller.name : ''}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-              {video}
-              <audio 
-                src="http://soundbible.com/mp3/glass_ping-Go445-1207030150.mp3"
-                autoPlay/>
+          <Modal.Body bsClass="modalBodySize">
+            {video}
+             <audio 
+               src="http://soundbible.com/mp3/glass_ping-Go445-1207030150.mp3"
+               autoPlay/>
           </Modal.Body>
           <Modal.Footer>
             <Button className="btn btn-success fa fa-phone" onClick={this.acceptIncomingVideo}></Button>
@@ -282,16 +288,18 @@ class App extends React.Component {
           </Modal.Footer>
         </Modal>;
 
-      header = <Header
-        handleCall={this.handleCall.bind(this)}
-        getOnlineUsers={this.getOnlineUsers.bind(this)}
-        statistic={this.state.statistic}
-        onlineUsers={this.state.onlineUsers}
-        onlineUserInfo={this.state.onlineUserInfo}
-        user={this.state.user}
-        waitTime={this.state.waitTime}
-        mentorResponseTime={this.state.mentorResponse}
-        mentorResolutionTime={this.state.mentorResolution}/>;
+      header = 
+        <Header
+          handleCall={this.handleCall.bind(this)}
+          getOnlineUsers={this.getOnlineUsers.bind(this)}
+          statistic={this.state.statistic}
+          onlineUsers={this.state.onlineUsers}
+          onlineUserInfo={this.state.onlineUserInfo}
+          user={this.state.user}
+          waitTime={this.state.waitTime}
+          mentorResponseTime={this.state.mentorResponse}
+          mentorResolutionTime={this.state.mentorResolution}
+        />;
 
       list = <TicketList user={this.state.user} ticketList={this.state.ticketList} updateTickets={this.updateTickets.bind(this)} hasClaimed={this.state.hasClaimed} />;
     }
@@ -311,7 +319,6 @@ class App extends React.Component {
       <div>
         <Alert />
         {nav}
-        {modalButton}
         {videoModal}
         {header}
         <div className="container">

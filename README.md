@@ -2,8 +2,12 @@
 
 A help desk application used by Hack Reactor students.
 
-## Team
+## Legacy Team
+  - [Pablo Boserman](https://github.com/pboserman)
+  - [Kai Mashima](https://github.com/kai-mashima)
+  - [Jeff Shindelus](https://github.com/shindelus)
 
+## Original Team
   - [David Gould](https://github.com/davidgould112)
   - [David Vassett](https://github.com/DavidVassett)
   - [Eric Mai](https://github.com/enmai1988)

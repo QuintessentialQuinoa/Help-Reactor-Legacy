@@ -3,7 +3,6 @@ import Modal from 'react-bootstrap/lib/Modal';
 import Button from 'react-bootstrap/lib/Button';
 
 class OnlineUserEntry extends React.Component {
-
   constructor (props) {
     super(props);
     this.state = {
@@ -39,10 +38,9 @@ class OnlineUserEntry extends React.Component {
           <Modal.Header closeButton>
           <Modal.Title>Video Chat</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <iframe
-            width='800'
-            height='640'
+          <Modal.Body bsClass="modalBodySize">
+            <iframe 
+            scrolling='no'
             src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.videoRoom}`}>
             </iframe>     
           </Modal.Body>
@@ -67,18 +65,18 @@ class OnlineUserEntry extends React.Component {
     userArea =
       <div className="modal-entry-container">
         <img className="modal-entry-img" src={this.props.user.avatarUrl} />
-        <div className="modal-entry-name modal-entry">
+        <div className="modal-entry-name modal-entry-middle">
           <a href={`https://www.github.com/${this.props.user.username}`} target="_blank">
-            <div>{this.props.user.firstName} {this.props.user.lastName}</div>
+            {this.props.user.firstName} {this.props.user.lastName}
           </a>
         </div>
-        <div className="modal-entry-username modal-entry">{this.props.user.username}</div>
+        <div className="modal-entry-username modal-entry-middle">{this.props.user.username}</div>
         {this.props.modalUserType === 'students' ?
-          <div className="modal-entry-username modal-entry">{this.props.user.ticketsPerDay}</div> : null}
+          <div className="modal-entry-username modal-entry-middle">{this.props.user.ticketsPerDay}</div> : null}
         {this.props.modalUserType === 'mentors' ? 
-          <div className="modal-entry-username modal-entry">{this.props.responseTime} Minutes</div> : null }
+          <div className="modal-entry-username modal-entry-middle">{this.props.responseTime} Minutes</div> : null }
         {this.props.modalUserType === 'mentors' ? 
-          <div className="modal-entry-username modal-entry">{this.props.resolutionTime} Minutes</div> : null }
+          <div className="modal-entry-username modal-entry-middle">{this.props.resolutionTime} Minutes</div> : null }
         {ableToVideoChat}
         {this.CameraModal()}
       </div>;
