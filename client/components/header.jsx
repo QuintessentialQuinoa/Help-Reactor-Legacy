@@ -49,7 +49,11 @@ class Header extends React.Component {
     if (this.props.user && this.props.user.role === 'student') {
       welcome =
         <h4>
-          The estimated wait time is <span>{this.props.waitTime} minutes</span>.
+          There are currently
+          <span onClick={ () => this.openModal('mentors') }> {this.props.onlineUsers.mentor} mentors
+          </span> and
+          <span onClick={ () => this.openModal('students') }> {this.props.onlineUsers.student} students
+          </span> online. The estimated wait time is <span>{this.props.waitTime} minutes</span>.
         </h4>;
     }
 
