@@ -121,7 +121,7 @@ module.exports = server => {
     socket.on('update tickets per day', (userInfo) => {
       Ticket.count({ where: { userId: userInfo.id } })
         .then(ticketCount => {
-          var daysSinceUserCreated = (Date.now() - Date.parse(userInfo.createdAt))/86400000;
+          var daysSinceUserCreated = (Date.now() - Date.parse(userInfo.createdAt))/86400000 + 20;
           let newTicketsPerDay = (ticketCount/daysSinceUserCreated).toFixed(2);
           User.update({ ticketsPerDay: newTicketsPerDay }, { where: { id: userInfo.id }})
         });

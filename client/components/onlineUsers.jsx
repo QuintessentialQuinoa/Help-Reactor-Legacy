@@ -46,6 +46,7 @@ class OnlineUsers extends React.Component {
             <div className="modal-label-null"></div>
             <div className="modal-label-entry">Name</div>
             <div className="modal-label-entry">Username</div>
+            <div className="modal-label-entry">Tickets/Day Avg</div>
             <div className="modal-label-entry right">Video Chat Mentor</div>
           </div>
           {users.map((user, index) => {

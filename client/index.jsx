@@ -71,7 +71,8 @@ class App extends React.Component {
       firstName: this.state.user.firstName,
       lastName: this.state.user.lastName,
       cohort: this.state.user.cohort,
-      avatarUrl: this.state.user.avatarUrl
+      avatarUrl: this.state.user.avatarUrl,
+      ticketsPerDay: this.state.user.ticketsPerDay
     };
 
     this.socket = io({ query: option });
