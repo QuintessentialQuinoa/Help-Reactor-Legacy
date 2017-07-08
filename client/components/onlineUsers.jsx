@@ -20,7 +20,7 @@ class OnlineUsers extends React.Component {
             <div className="modal-label-entry">Avg. Resolution Time</div>
             <div className="modal-label-entry right">Video Chat Mentor</div>
           </div>
-          {users.map((user, index) => {
+          {users.mentors.map((user, index) => {
             var id = user.id;
 
             var findMentor = (mentor) => {
@@ -50,7 +50,7 @@ class OnlineUsers extends React.Component {
             <div className="modal-label-entry">Tickets/Day Avg</div>
             <div className="modal-label-entry right">Video Chat Mentor</div>
           </div>
-          {users.map((user, index) => {
+          {users.students.map((user, index) => {
             return <OnlineUserEntry
               modalUserType={modalUserType}
               handleCall={handleCall}

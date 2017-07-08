@@ -22,7 +22,7 @@ class Header extends React.Component {
   }
 
   openModal(userType) {
-    this.props.getOnlineUsers(userType);
+    this.props.getOnlineUsers();
     this.setState({
       modalUserType: userType,
       showModal: true
