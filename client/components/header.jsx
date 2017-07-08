@@ -67,13 +67,14 @@ class Header extends React.Component {
             <Modal.Title>Online {this.state.modalUserType.charAt(0).toUpperCase() + this.state.modalUserType.slice(1)}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <OnlineUsers 
+            <OnlineUsers
               remoteStreamURL={this.props.remoteStreamURL}
               handleCall={this.props.handleCall}
               users={this.props.onlineUserInfo}
               mentorResponseTime={this.props.mentorResponseTime}
               mentorResolutionTime={this.props.mentorResolutionTime}
-              modalUserType={this.state.modalUserType}/>
+              modalUserType={this.state.modalUserType}
+              appUser={this.props.user}/>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.closeModal}>Close</Button>

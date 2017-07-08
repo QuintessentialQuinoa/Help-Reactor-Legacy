@@ -51,7 +51,7 @@ class OnlineUserEntry extends React.Component {
   CameraModal () {
     return (
       <Modal
-          show={this.state.showCamera} 
+          show={this.state.showCamera}
           bsSize='large'
           onHide={this.toggleCamera}>
           <Modal.Header closeButton>
@@ -68,7 +68,15 @@ class OnlineUserEntry extends React.Component {
   }
 
   render () {
+    console.log(this.props.user.id !== this.props.appUser.id.toString())
     let userArea = null;
+    let ableToVideoChat = null;
+
+    if ((this.props.appUser.role === 'mentor' || (this.props.appUser.role === 'student' && this.props.user.role === 'student')) && (this.props.user.id !== this.props.appUser.id.toString())) {
+      ableToVideoChat = <button onClick={this.toggleCamera} className="modal-entry-video-chat modal-entry fa fa-video-camera"></button>;
+    } else {
+      ableToVideoChat = <div>  No Video Chat Available  </div>
+    }
 
     if (this.props.modalUserType === 'mentors') {
       userArea =
@@ -82,11 +90,11 @@ class OnlineUserEntry extends React.Component {
           <div className="modal-entry-username modal-entry">{this.props.user.username}</div>
           <div className="modal-entry-username modal-entry">{this.props.responseTime} Minutes</div>
           <div className="modal-entry-username modal-entry">{this.props.resolutionTime} Minutes</div>
-          <button onClick={this.toggleCamera} className="modal-entry-video-chat modal-entry fa fa-video-camera"></button>
+          {ableToVideoChat}
           {this.CameraModal()}
         </div>;
     } else if (this.props.modalUserType === 'students') {
-      userArea = 
+      userArea =
         <div className="modal-entry-container">
           <img className="modal-entry-img" src={this.props.user.avatarUrl} />
           <div className="modal-entry-name modal-entry">
@@ -95,7 +103,7 @@ class OnlineUserEntry extends React.Component {
             </a>
           </div>
           <div className="modal-entry-username modal-entry">{this.props.user.username}</div>
-          <button onClick={this.toggleCamera} className="modal-entry-video-chat modal-entry fa fa-video-camera"></button>
+          {ableToVideoChat}
           {this.CameraModal()}
         </div>;
     }
