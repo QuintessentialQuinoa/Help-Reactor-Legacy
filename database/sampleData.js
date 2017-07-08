@@ -154,9 +154,9 @@ module.exports.users = [
     "cohort": "HRSF-78"
   },
   {
-    "firstName": "Shannen",
-    "lastName": "Drayton",
-    "username": "shannen_drayton",
+    "firstName": "Carlos",
+    "lastName": "Osorio",
+    "username": "cosorio94",
     "role": "student",
     "cohort": "HRSF-77"
   },
