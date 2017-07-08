@@ -63,7 +63,7 @@ class App extends React.Component {
 
   componentDidMount() {
     if (!this.state.user) { return; }
-    
+
     let option = {
       id: this.state.user.id,
       role: this.state.user.role,
@@ -98,7 +98,7 @@ class App extends React.Component {
     this.socket.on('new mentor resolution time', data => this.setState({ mentorResolution: data.data}));
 
     this.socket.on('call request', data => {
-      this.setState({ 
+      this.setState({
         caller: data.caller,
         remoteStreamURL: data.remoteStreamURL,
         showVideoModal: true
@@ -113,7 +113,7 @@ class App extends React.Component {
 
     this.socket.on('answer', (data) => this.setState({ answerData: data }));
 
-
+    this.socket.emit('update tickets per day for every user');
 
     this.getTickets(option);
   }
@@ -147,6 +147,7 @@ class App extends React.Component {
           success: (response) => {
             this.socket.emit('refresh');
             this.socket.emit('update adminStats');
+            this.socket.emit('update tickets per day', this.state.user);
             document.getElementById('ticket_submission_location').value = '';
             document.getElementById('ticket_submission_description').value = '';
           },
@@ -289,11 +290,11 @@ class App extends React.Component {
       header = <Header
         remoteStreamURL={!!this.state.localAnswerStream ? this.state.localAnswerStream.remoteStreamURL : ''}
         handleCall={this.handleCall.bind(this)}
-        getOnlineUsers={this.getOnlineUsers.bind(this)} 
-        statistic={this.state.statistic} 
-        onlineUsers={this.state.onlineUsers} 
+        getOnlineUsers={this.getOnlineUsers.bind(this)}
+        statistic={this.state.statistic}
+        onlineUsers={this.state.onlineUsers}
         onlineUserInfo={this.state.onlineUserInfo}
-        user={this.state.user} 
+        user={this.state.user}
         waitTime={this.state.waitTime}
         mentorResponseTime={this.state.mentorResponse}
         mentorResolutionTime={this.state.mentorResolution}/>;
