@@ -72,7 +72,6 @@ class Header extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <OnlineUsers
-              remoteStreamURL={this.props.remoteStreamURL}
               handleCall={this.props.handleCall}
               users={this.props.onlineUserInfo}
               mentorResponseTime={this.props.mentorResponseTime}
