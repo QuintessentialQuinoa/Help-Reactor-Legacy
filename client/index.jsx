@@ -100,8 +100,8 @@ class App extends React.Component {
       this.setState({
         caller: data.caller,
         roomName: data.roomName,
-        showVideoModal: true
       });
+      this.openVideoModal();
     });
 
     this.socket.on('answer', (data) => this.setState({ answerData: data }));
@@ -272,6 +272,9 @@ class App extends React.Component {
           </Modal.Header>
           <Modal.Body>
               {video}
+              <audio 
+                src="http://soundbible.com/mp3/glass_ping-Go445-1207030150.mp3"
+                autoPlay/>
           </Modal.Body>
           <Modal.Footer>
             <Button className="btn btn-success fa fa-phone" onClick={this.acceptIncomingVideo}></Button>
