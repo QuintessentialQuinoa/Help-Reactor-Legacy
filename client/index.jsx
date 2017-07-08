@@ -269,7 +269,7 @@ class App extends React.Component {
 
       if (this.state.acceptVideo) {
         // video = <video src={this.state.remoteStreamURL} autoPlay></video>;
-        video = <iframe width='800' height='640' src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=656adf00-f9d6-4a5c-b7c2-6c04a2b9eff0&iframe=true&room=${this.videoRoom}`}></iframe>;
+        video = <iframe width='800' height='640' src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=656adf00-f9d6-4a5c-b7c2-6c04a2b9eff0&iframe=true&room=${this.state.remoteStreamURL}`}></iframe>;
       }
 
       videoModal = <Modal

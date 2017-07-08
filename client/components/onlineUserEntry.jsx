@@ -22,6 +22,7 @@ class OnlineUserEntry extends React.Component {
 
   toggleCamera () {
     if (!this.state.showCamera) {
+      console.log('video room local: ', this.videoRoom);
       this.Call(this.onlineUser, this.videoRoom);
       // var connection = new PeerConnection(`${this.onlineUser.id} ${this.onlineUser.name}`);
     }
@@ -62,6 +63,7 @@ class OnlineUserEntry extends React.Component {
     let userArea = null;
     let ableToVideoChat = null;
 
+    // TODO: CHANGE BACK AFTER TESTING
     if ((this.props.appUser.role === 'mentor' || (this.props.appUser.role === 'student' && this.props.user.role === 'student')) && (this.props.user.id !== this.props.appUser.id.toString())) {
       ableToVideoChat = <button onClick={this.toggleCamera} className="modal-entry-video-chat modal-entry fa fa-video-camera"></button>;
     } else {
