@@ -22,6 +22,7 @@ class OnlineUsers extends React.Component {
           </div>
           {users.map((user, index) => {
             var id = user.id;
+
             var findMentor = (mentor) => {
               return Object.keys(mentor)[0] === id;
             };
@@ -51,7 +52,6 @@ class OnlineUsers extends React.Component {
           </div>
           {users.map((user, index) => {
             return <OnlineUserEntry
-              remoteStreamURL={remoteStreamURL}
               modalUserType={modalUserType}
               handleCall={handleCall}
               key={index}

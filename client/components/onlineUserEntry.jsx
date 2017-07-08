@@ -17,22 +17,17 @@ class OnlineUserEntry extends React.Component {
          role: this.props.user.role,
          name: `${this.props.user.firstName} ${this.props.user.lastName}`
     };
-    this.videoRoom = this.onlineUser.id+this.onlineUser.role;
+    this.videoRoom = this.onlineUser.id + this.onlineUser.role + this.props.appUser.id + this.props.appUser.role;
   }
 
   toggleCamera () {
+    console.log(this.videoRoom);
     if (!this.state.showCamera) {
-      console.log('video room local: ', this.videoRoom);
-      this.Call(this.onlineUser, this.videoRoom);
-      // var connection = new PeerConnection(`${this.onlineUser.id} ${this.onlineUser.name}`);
+      this.props.handleCall(this.onlineUser, this.videoRoom);
     }
     this.setState((prevState) => {
       return { showCamera: !prevState.showCamera };
     });
-  }
-
-  Call (user, myStream) {
-    this.props.handleCall(user, myStream);
   }
 
   CameraModal () {
@@ -48,11 +43,11 @@ class OnlineUserEntry extends React.Component {
             <iframe
             width='800'
             height='640'
-            src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=656adf00-f9d6-4a5c-b7c2-6c04a2b9eff0&iframe=true&room=${this.videoRoom}`}>
-            </iframe>
+            src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.videoRoom}`}>
+            </iframe>     
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.toggleCamera}>Close</Button>
+            <Button className="btn btn-danger" onClick={this.toggleCamera}>Close</Button>
           </Modal.Footer>
       </Modal>
     )
@@ -64,41 +59,29 @@ class OnlineUserEntry extends React.Component {
 
     // TODO: CHANGE BACK AFTER TESTING
     if ((this.props.appUser.role === 'mentor' || (this.props.appUser.role === 'student' && this.props.user.role === 'student')) && (this.props.user.id !== this.props.appUser.id.toString())) {
-      ableToVideoChat = <button onClick={this.toggleCamera} className="modal-entry-video-chat modal-entry fa fa-video-camera"></button>;
+      ableToVideoChat = <button onClick={this.toggleCamera} className="btn btn-success modal-entry-video-chat modal-entry fa fa-video-camera"></button>;
     } else {
-      ableToVideoChat = <div>  No Video Chat Available  </div>
+      ableToVideoChat = <button onClick={this.toggleCamera} className="disabled btn btn-danger modal-entry-video-chat modal-entry fa fa-video-camera" disabled></button>;
     }
 
-    if (this.props.modalUserType === 'mentors') {
-      userArea =
-        <div className="modal-entry-container">
-          <img className="modal-entry-img" src={this.props.user.avatarUrl} />
-          <div className="modal-entry-name modal-entry">
-            <a href={`https://www.github.com/${this.props.user.username}`} target="_blank">
-              <div>{this.props.user.firstName} {this.props.user.lastName}</div>
-            </a>
-          </div>
-          <div className="modal-entry-username modal-entry">{this.props.user.username}</div>
-          <div className="modal-entry-username modal-entry">{this.props.responseTime} Minutes</div>
-          <div className="modal-entry-username modal-entry">{this.props.resolutionTime} Minutes</div>
-          {ableToVideoChat}
-          {this.CameraModal()}
-        </div>;
-    } else if (this.props.modalUserType === 'students') {
-      userArea =
-        <div className="modal-entry-container">
-          <img className="modal-entry-img" src={this.props.user.avatarUrl} />
-          <div className="modal-entry-name modal-entry">
-            <a href={`https://www.github.com/${this.props.user.username}`} target="_blank">
-              <div>{this.props.user.firstName} {this.props.user.lastName}</div>
-            </a>
-          </div>
-          <div className="modal-entry-username modal-entry">{this.props.user.username}</div>
-          <div className="modal-entry-username modal-entry">{this.props.user.ticketsPerDay}</div>
-          {ableToVideoChat}
-          {this.CameraModal()}
-        </div>;
-    }
+    userArea =
+      <div className="modal-entry-container">
+        <img className="modal-entry-img" src={this.props.user.avatarUrl} />
+        <div className="modal-entry-name modal-entry">
+          <a href={`https://www.github.com/${this.props.user.username}`} target="_blank">
+            <div>{this.props.user.firstName} {this.props.user.lastName}</div>
+          </a>
+        </div>
+        <div className="modal-entry-username modal-entry">{this.props.user.username}</div>
+        {this.props.modalUserType === 'students' ?
+          <div className="modal-entry-username modal-entry">{this.props.user.ticketsPerDay}</div> : null}
+        {this.props.modalUserType === 'mentors' ? 
+          <div className="modal-entry-username modal-entry">{this.props.responseTime} Minutes</div> : null }
+        {this.props.modalUserType === 'mentors' ? 
+          <div className="modal-entry-username modal-entry">{this.props.resolutionTime} Minutes</div> : null }
+        {ableToVideoChat}
+        {this.CameraModal()}
+      </div>;
 
     return (
       <div>

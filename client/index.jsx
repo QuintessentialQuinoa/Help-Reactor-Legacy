@@ -10,7 +10,6 @@ import Header from './components/header.jsx';
 import AdminDashboard from './components/adminDashboard.jsx';
 import Modal from 'react-bootstrap/lib/Modal';
 import Button from 'react-bootstrap/lib/Button';
-import SetCamera from './components/Camera.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -23,7 +22,7 @@ class App extends React.Component {
       user: null,
       isAuthenticated: false,
       caller: {},
-      remoteStreamURL: '',
+      roomName: '',
       localAnswerStream: {},
       answerData: {},
       onlineUsers: {},
@@ -33,8 +32,7 @@ class App extends React.Component {
       mentorResponse: [],
       mentorResolution: []
     };
-    window.navigator.getUserMedia = window.navigator.getUserMedia ||
-    window.navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
+    window.embedId = window.location.hostname === '127.0.0.1' ? 'ecd8e4ad-6793-4f70-8efe-cfbeaf5bf1d9' : '656adf00-f9d6-4a5c-b7c2-6c04a2b9eff0';
     this.closeVideoModal = this.closeVideoModal.bind(this);
     this.openVideoModal = this.openVideoModal.bind(this);
     this.acceptIncomingVideo = this.acceptIncomingVideo.bind(this);
@@ -101,14 +99,8 @@ class App extends React.Component {
     this.socket.on('call request', data => {
       this.setState({
         caller: data.caller,
-        remoteStreamURL: data.remoteStreamURL,
+        roomName: data.roomName,
         showVideoModal: true
-      });
-      SetCamera((stream) => {
-        var response = data;
-        data.remoteStreamURL = window.URL.createObjectURL(stream);
-        this.setState( { localAnswerStream: stream } );
-        this.socket.emit('answer request', response);
       });
     });
 
@@ -165,14 +157,13 @@ class App extends React.Component {
     this.socket.emit('get online users', userType);
   }
 
-  handleCall(receiver, localStream) {
-    var remoteStreamURL = localStream;
+  handleCall(receiver, roomName) {
     var caller = {
       id: this.state.user.id,
       role: this.state.user.role,
       name: `${this.state.user.firstName} ${this.state.user.lastName}`
     }
-    this.socket.emit('call user', {receiver, caller, remoteStreamURL});
+    this.socket.emit('call user', {receiver, caller, roomName});
   }
 
   updateTickets(data) {
@@ -269,8 +260,7 @@ class App extends React.Component {
       nav = <Nav user={this.state.user} />;
 
       if (this.state.acceptVideo) {
-        // video = <video src={this.state.remoteStreamURL} autoPlay></video>;
-        video = <iframe width='800' height='640' src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=656adf00-f9d6-4a5c-b7c2-6c04a2b9eff0&iframe=true&room=${this.state.remoteStreamURL}`}></iframe>;
+        video = <iframe width='800' height='640' src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.state.roomName}`}></iframe>;
       }
 
       videoModal = <Modal
@@ -284,13 +274,12 @@ class App extends React.Component {
               {video}
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.acceptIncomingVideo}>Accept</Button>
-            <Button onClick={this.closeVideoModal}>Decline</Button>
+            <Button className="btn btn-success fa fa-phone" onClick={this.acceptIncomingVideo}></Button>
+            <Button className="btn btn-danger fa fa-phone" onClick={this.closeVideoModal}></Button>
           </Modal.Footer>
         </Modal>;
 
       header = <Header
-        remoteStreamURL={!!this.state.localAnswerStream ? this.state.localAnswerStream.remoteStreamURL : ''}
         handleCall={this.handleCall.bind(this)}
         getOnlineUsers={this.getOnlineUsers.bind(this)}
         statistic={this.state.statistic}
