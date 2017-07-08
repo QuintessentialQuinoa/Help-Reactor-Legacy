@@ -26,7 +26,7 @@ class App extends React.Component {
       localAnswerStream: {},
       answerData: {},
       onlineUsers: {},
-      onlineUserInfo: [],
+      onlineUserInfo: {students: [], mentors: []},
       statistic: {},
       waitTime: 0,
       mentorResponse: [],
@@ -153,8 +153,8 @@ class App extends React.Component {
     });
   }
 
-  getOnlineUsers(userType) {
-    this.socket.emit('get online users', userType);
+  getOnlineUsers() {
+    this.socket.emit('get online users');
   }
 
   handleCall(receiver, roomName) {
