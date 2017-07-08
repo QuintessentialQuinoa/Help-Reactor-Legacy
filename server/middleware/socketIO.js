@@ -67,7 +67,7 @@ module.exports = server => {
         users.forEach(user => {
           Ticket.count({ where: { userId: user.id } })
             .then(ticketCount => {
-              var daysSinceUserCreated = (Date.now() - Date.parse(user.createdAt))/86400000;
+              var daysSinceUserCreated = (Date.now() - Date.parse(user.createdAt))/86400000 + 20;
               let newTicketsPerDay = (ticketCount/daysSinceUserCreated).toFixed(2);
               User.update({ ticketsPerDay: newTicketsPerDay }, { where: { id: user.id }})
             });
