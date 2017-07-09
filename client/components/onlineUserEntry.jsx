@@ -65,18 +65,18 @@ class OnlineUserEntry extends React.Component {
     userArea =
       <div className="modal-entry-container">
         <img className="modal-entry-img" src={this.props.user.avatarUrl} />
-        <div className="modal-entry-name modal-entry-middle">
+        <div className="modal-entry-middle">
           <a href={`https://www.github.com/${this.props.user.username}`} target="_blank">
             {this.props.user.firstName} {this.props.user.lastName}
           </a>
         </div>
-        <div className="modal-entry-username modal-entry-middle">{this.props.user.username}</div>
+        <div className="modal-entry-middle">{this.props.user.username}</div>
         {this.props.modalUserType === 'students' ?
-          <div className="modal-entry-username modal-entry-middle">{this.props.user.ticketsPerDay}</div> : null}
+          <div className="modal-entry-middle">{this.props.user.ticketsPerDay}</div> : null}
         {this.props.modalUserType === 'mentors' ? 
-          <div className="modal-entry-username modal-entry-middle">{this.props.responseTime} Minutes</div> : null }
+          <div className="modal-entry-middle">{this.props.responseTime} Minutes</div> : null }
         {this.props.modalUserType === 'mentors' ? 
-          <div className="modal-entry-username modal-entry-middle">{this.props.resolutionTime} Minutes</div> : null }
+          <div className="modal-entry-middle">{this.props.resolutionTime} Minutes</div> : null }
         {ableToVideoChat}
         {this.CameraModal()}
       </div>;
