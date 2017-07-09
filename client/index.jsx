@@ -20,6 +20,8 @@ class App extends React.Component {
       ticketList: [],
       ticketCategoryList: ['React', 'Socket.IO', 'Recursion', 'Postgres'],
       user: null,
+      declinedCall: false,
+      cancelledCall: false,
       isAuthenticated: false,
       caller: {},
       roomName: '',
@@ -35,7 +37,6 @@ class App extends React.Component {
     window.embedId = window.location.hostname === '127.0.0.1' ? 'ecd8e4ad-6793-4f70-8efe-cfbeaf5bf1d9' : '656adf00-f9d6-4a5c-b7c2-6c04a2b9eff0';
     this.closeVideoModal = this.closeVideoModal.bind(this);
     this.openVideoModal = this.openVideoModal.bind(this);
-    this.acceptIncomingVideo = this.acceptIncomingVideo.bind(this);
   }
 
   componentWillMount() {
@@ -104,7 +105,9 @@ class App extends React.Component {
       this.openVideoModal();
     });
 
-    this.socket.on('declined call', /* change the modal state to ended call */ );
+    this.socket.on('declined call', /* change the caller modal state to ended call */ );
+
+    this.socket.on('cancelled call', /* change the receiver modal state to ended call */ )
 
     this.socket.emit('update tickets per day for every user');
 
@@ -164,6 +167,15 @@ class App extends React.Component {
       name: `${this.state.user.firstName} ${this.state.user.lastName}`
     }
     this.socket.emit('call user', {receiver, caller, roomName});
+  }
+
+  cancelCall(receiver) {
+    var caller = {
+      id: this.state.user.id,
+      role: this.state.user.role,
+      name: `${this.state.user.firstName} ${this.state.user.lastName}`
+    };
+    this.socket.emit('cancel call', {receiver, caller});
   }
 
   updateTickets(data) {
@@ -240,12 +252,6 @@ class App extends React.Component {
     });
   }
 
-  acceptIncomingVideo() {
-    this.setState({
-      acceptVideo: true
-    });
-  }
-
   render() {
     let user = this.state.user;
     let isAuthenticated = this.state.isAuthenticated;
@@ -285,6 +291,7 @@ class App extends React.Component {
 
       header = 
         <Header
+          cancelCall={this.cancelCall.bind(this)}
           handleCall={this.handleCall.bind(this)}
           getOnlineUsers={this.getOnlineUsers.bind(this)}
           statistic={this.state.statistic}

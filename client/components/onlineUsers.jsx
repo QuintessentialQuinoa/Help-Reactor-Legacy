@@ -7,7 +7,14 @@ class OnlineUsers extends React.Component {
   }
 
   render () {
-    const {appUser, remoteStreamURL, handleCall, users, mentorResponseTime, mentorResolutionTime, modalUserType} = this.props;
+    const {appUser, 
+          cancelCall,
+          remoteStreamURL, 
+          handleCall, 
+          users, 
+          mentorResponseTime, 
+          mentorResolutionTime, 
+          modalUserType} = this.props;
     let onlineUsers = null;
     
     if (modalUserType === 'mentors') {
@@ -53,6 +60,7 @@ class OnlineUsers extends React.Component {
           </div>
           {users.students.map((user, index) => {
             return <OnlineUserEntry
+              cancelCall={cancelCall}
               modalUserType={modalUserType}
               handleCall={handleCall}
               key={index}
