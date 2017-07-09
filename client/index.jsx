@@ -278,7 +278,7 @@ class App extends React.Component {
     if (isAuthenticated) {
       nav = <Nav user={this.state.user} />
 
-      videoModal = 
+      videoModal =
         <Modal
           show={this.state.showVideoModal}
           onHide={this.closeVideoModal}
@@ -289,8 +289,8 @@ class App extends React.Component {
           <Modal.Body bsClass="modalBodySize">
             {
             !this.state.cancelledCall ?
-                <iframe 
-                  scrolling='no' 
+                <iframe
+                  scrolling='no'
                   src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.state.roomName}`}>
                 </iframe>
             :
@@ -298,7 +298,7 @@ class App extends React.Component {
                 Call ended by {this.state.caller.name}
               </h3>
             }
-            <audio 
+            <audio
               src="http://soundbible.com/mp3/glass_ping-Go445-1207030150.mp3"
               autoPlay
             />
@@ -308,7 +308,7 @@ class App extends React.Component {
           </Modal.Footer>
         </Modal>;
 
-      header = 
+      header =
         <Header
           cancelCall={this.cancelCall.bind(this)}
           handleCall={this.handleCall.bind(this)}
@@ -320,6 +320,7 @@ class App extends React.Component {
           waitTime={this.state.waitTime}
           mentorResponseTime={this.state.mentorResponse}
           mentorResolutionTime={this.state.mentorResolution}
+          declinedCall={this.state.declinedCall}
         />;
 
       list = <TicketList user={this.state.user} ticketList={this.state.ticketList} updateTickets={this.updateTickets.bind(this)} hasClaimed={this.state.hasClaimed} />;

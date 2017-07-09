@@ -31,6 +31,16 @@ class OnlineUserEntry extends React.Component {
   }
 
   CameraModal () {
+    let videoCall = null;
+    if (this.props.declinedCall) {
+      videoCall = <h3> Call Ended By {this.onlineUser.name} </h3>
+    } else {
+      videoCall = <iframe
+            scrolling='no'
+            src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.videoRoom}`}>
+            </iframe>;
+    }
+
     return (
       <Modal
           show={this.state.showCamera}
@@ -40,10 +50,7 @@ class OnlineUserEntry extends React.Component {
           <Modal.Title>Video Chat</Modal.Title>
           </Modal.Header>
           <Modal.Body bsClass="modalBodySize">
-            <iframe 
-            scrolling='no'
-            src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.videoRoom}`}>
-            </iframe>     
+          {videoCall}
           </Modal.Body>
           <Modal.Footer>
             <Button className="btn btn-danger" onClick={this.toggleCamera}>Close</Button>
@@ -74,9 +81,9 @@ class OnlineUserEntry extends React.Component {
         <div className="modal-entry-middle">{this.props.user.username}</div>
         {this.props.modalUserType === 'students' ?
           <div className="modal-entry-middle">{this.props.user.ticketsPerDay}</div> : null}
-        {this.props.modalUserType === 'mentors' ? 
+        {this.props.modalUserType === 'mentors' ?
           <div className="modal-entry-middle">{this.props.responseTime} Minutes</div> : null }
-        {this.props.modalUserType === 'mentors' ? 
+        {this.props.modalUserType === 'mentors' ?
           <div className="modal-entry-middle">{this.props.resolutionTime} Minutes</div> : null }
         {ableToVideoChat}
         {this.CameraModal()}
