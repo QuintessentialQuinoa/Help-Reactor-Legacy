@@ -107,7 +107,7 @@ class App extends React.Component {
 
     this.socket.on('declined call', /* change the caller modal state to ended call */ );
 
-    this.socket.on('cancelled call', /* change the receiver modal state to ended call */ )
+    this.socket.on('cancelled call', this.setState({  }) )
 
     this.socket.emit('update tickets per day for every user');
 
@@ -243,7 +243,15 @@ class App extends React.Component {
       showVideoModal: false,
       acceptVideo: false
     });
-    this.socket.emit('decline');
+    var receiver = {
+      id: this.state.user.id,
+      role: this.state.user.role,
+      name: `${this.state.user.firstName} ${this.state.user.lastName}`
+    }
+    this.socket.emit('decline', {
+      caller: this.caller,
+      receiver: receiver
+    });
   }
 
   openVideoModal() {
