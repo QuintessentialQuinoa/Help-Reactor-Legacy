@@ -32,8 +32,7 @@ class App extends React.Component {
       statistic: {},
       waitTime: 0,
       mentorResponse: [],
-      mentorResolution: [],
-      declinedCall: false
+      mentorResolution: []
     };
     window.embedId = window.location.hostname === '127.0.0.1' ? 'ecd8e4ad-6793-4f70-8efe-cfbeaf5bf1d9' : '656adf00-f9d6-4a5c-b7c2-6c04a2b9eff0';
     this.closeVideoModal = this.closeVideoModal.bind(this);

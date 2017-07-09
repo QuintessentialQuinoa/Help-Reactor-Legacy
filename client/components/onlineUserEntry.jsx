@@ -31,6 +31,17 @@ class OnlineUserEntry extends React.Component {
   }
 
   CameraModal () {
+    console.log(this.props.declinedCall)
+    let videoCall = null;
+    if (this.props.declinedCall) {
+      videoCall = <div> Call Ended By {this.onlineUser.name} </div>
+    } else {
+      videoCall = <iframe
+            scrolling='no'
+            src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.videoRoom}`}>
+            </iframe>;
+    }
+
     return (
       <Modal
           show={this.state.showCamera}
@@ -40,10 +51,7 @@ class OnlineUserEntry extends React.Component {
           <Modal.Title>Video Chat</Modal.Title>
           </Modal.Header>
           <Modal.Body bsClass="modalBodySize">
-            <iframe
-            scrolling='no'
-            src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.videoRoom}`}>
-            </iframe>
+          {videoCall}
           </Modal.Body>
           <Modal.Footer>
             <Button className="btn btn-danger" onClick={this.toggleCamera}>Close</Button>
@@ -53,7 +61,6 @@ class OnlineUserEntry extends React.Component {
   }
 
   render () {
-    console.log(this.props.declinedCall)
     let userArea = null;
     let ableToVideoChat = null;
 
