@@ -106,9 +106,18 @@ class App extends React.Component {
       this.openVideoModal();
     });
 
-    this.socket.on('declined call', () => this.setState({ declinedCall: true }) );
+    this.socket.on('declined call', () => {
+      this.setState({ 
+        declinedCall: true
+      }); 
+    });
 
-    this.socket.on('cancelled call', () => this.setState({ cancelledCall: true }) );
+    this.socket.on('cancelled call', (data) => {
+      this.setState({ 
+        cancelledCall: true,
+        caller: data.caller,
+      });
+    });
 
     this.socket.emit('update tickets per day for every user');
 
@@ -252,12 +261,10 @@ class App extends React.Component {
       role: this.state.user.role,
       name: `${this.state.user.firstName} ${this.state.user.lastName}`
     }
-    if (!this.state.cancelledCall) {
-      this.socket.emit('decline', {
-        caller: this.state.caller,
-        receiver: receiver
-      });
-    }
+    this.socket.emit('decline', {
+      caller: this.state.caller,
+      receiver: receiver
+    });
   }
 
   openVideoModal() {
@@ -304,7 +311,7 @@ class App extends React.Component {
             :
               <Modal.Body bsClass="modalBodyCallEnded">
                 <Panel> 
-                  <div> Call Ended By <b>{this.onlineUser.name}</b> </div>
+                  <div> Call Ended By <b>{this.state.caller.name}</b> </div>
                   <div>on <b>{new Date().toLocaleDateString()}</b> at <b>{new Date().toLocaleTimeString()}</b></div>
                 </Panel>
               </Modal.Body>
