@@ -112,11 +112,11 @@ module.exports = server => {
       }
     });
 
-    socket.on('answer request', (info) => {
+    socket.on('decline', (info) => {
       if (info.caller.role === 'student') {
-        students[info.caller.id].forEach(socket => socket.emit('answer', info));
+        students[info.caller.id].forEach(socket => socket.emit('declined call', info));
       } else if (info.caller.role === 'mentor') {
-        mentors[info.caller.id].forEach(socket => socket.emit('answer', info));
+        mentors[info.caller.id].forEach(socket => socket.emit('declined call', info));
       }
     });
 
