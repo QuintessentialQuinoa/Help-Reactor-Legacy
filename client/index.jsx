@@ -254,19 +254,10 @@ class App extends React.Component {
     let list = null;
     let videoModal = null;
     let modalButton = null;
-    let video = null;
     let buttons = null;
 
     if (isAuthenticated) {
-      nav = <Nav user={this.state.user} />;
-
-      if (this.state.acceptVideo) {
-        video = 
-          <iframe 
-            scrolling='no' 
-            src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.state.roomName}`}>
-          </iframe>;
-      }
+      nav = <Nav user={this.state.user} />
 
       videoModal = 
         <Modal
@@ -277,14 +268,17 @@ class App extends React.Component {
             <Modal.Title>Incoming Video Call From {this.state.caller ? this.state.caller.name : ''}</Modal.Title>
           </Modal.Header>
           <Modal.Body bsClass="modalBodySize">
-            {video}
-             <audio 
-               src="http://soundbible.com/mp3/glass_ping-Go445-1207030150.mp3"
-               autoPlay/>
+            <iframe 
+              scrolling='no' 
+              src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.state.roomName}`}>
+            </iframe>;
+            <audio 
+              src="http://soundbible.com/mp3/glass_ping-Go445-1207030150.mp3"
+              autoPlay
+            />
           </Modal.Body>
           <Modal.Footer>
-            <Button className="btn btn-success fa fa-phone" onClick={this.acceptIncomingVideo}></Button>
-            <Button className="btn btn-danger fa fa-phone" onClick={this.closeVideoModal}></Button>
+            <Button className="btn btn-danger" onClick={this.closeVideoModal}>Close</Button>
           </Modal.Footer>
         </Modal>;
 
