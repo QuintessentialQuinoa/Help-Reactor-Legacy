@@ -31,10 +31,9 @@ class OnlineUserEntry extends React.Component {
   }
 
   CameraModal () {
-    console.log(this.props.declinedCall)
     let videoCall = null;
     if (this.props.declinedCall) {
-      videoCall = <div> Call Ended By {this.onlineUser.name} </div>
+      videoCall = <h3> Call Ended By {this.onlineUser.name} </h3>
     } else {
       videoCall = <iframe
             scrolling='no'
