@@ -105,9 +105,9 @@ class App extends React.Component {
       this.openVideoModal();
     });
 
-    this.socket.on('declined call', /* change the caller modal state to ended call */ );
+    this.socket.on('declined call', () => this.setState({ declinedCall: true }) );
 
-    this.socket.on('cancelled call', this.setState({  }) )
+    this.socket.on('cancelled call', () => this.setState({ cancelledCall: true }) );
 
     this.socket.emit('update tickets per day for every user');
 
@@ -249,7 +249,7 @@ class App extends React.Component {
       name: `${this.state.user.firstName} ${this.state.user.lastName}`
     }
     this.socket.emit('decline', {
-      caller: this.caller,
+      caller: this.state.caller,
       receiver: receiver
     });
   }
@@ -283,10 +283,17 @@ class App extends React.Component {
             <Modal.Title>Incoming Video Call From {this.state.caller ? this.state.caller.name : ''}</Modal.Title>
           </Modal.Header>
           <Modal.Body bsClass="modalBodySize">
-            <iframe 
-              scrolling='no' 
-              src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.state.roomName}`}>
-            </iframe>;
+            {
+            !this.state.cancelledCall ?
+                <iframe 
+                  scrolling='no' 
+                  src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.state.roomName}`}>
+                </iframe>
+            :
+              <div>
+                Call ended by {this.state.caller.name}
+              </div>
+            }
             <audio 
               src="http://soundbible.com/mp3/glass_ping-Go445-1207030150.mp3"
               autoPlay
