@@ -165,7 +165,10 @@ class App extends React.Component {
       id: this.state.user.id,
       role: this.state.user.role,
       name: `${this.state.user.firstName} ${this.state.user.lastName}`
-    }
+    };
+    this.setState({
+      declinedCall: false
+    });
     this.socket.emit('call user', {receiver, caller, roomName});
   }
 
@@ -256,6 +259,7 @@ class App extends React.Component {
 
   openVideoModal() {
     this.setState({
+      cancelledCall: false,
       showVideoModal: true
     });
   }
@@ -290,9 +294,9 @@ class App extends React.Component {
                   src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.state.roomName}`}>
                 </iframe>
             :
-              <div>
+              <h3>
                 Call ended by {this.state.caller.name}
-              </div>
+              </h3>
             }
             <audio 
               src="http://soundbible.com/mp3/glass_ping-Go445-1207030150.mp3"
