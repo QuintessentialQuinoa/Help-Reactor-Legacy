@@ -120,6 +120,14 @@ module.exports = server => {
       }
     });
 
+    socket.on('cancel call', (info) => {
+      if (info.receiver.role === 'student') {
+        students[info.receiver.id].forEach(socket => socket.emit('cancelled call', info));
+      } else if (info.receiver.role === 'mentor') {
+        mentors[info.receiver.id].forEach(socket => socket.emit('cancelled call', info));
+      }
+    });
+
     socket.on('update tickets per day', (userInfo) => {
       Ticket.count({ where: { userId: userInfo.id } })
         .then(ticketCount => {

@@ -23,6 +23,8 @@ class OnlineUserEntry extends React.Component {
     console.log(this.videoRoom);
     if (!this.state.showCamera) {
       this.props.handleCall(this.onlineUser, this.videoRoom);
+    } else {
+      this.props.cancelCall(this.onlineUser);
     }
     this.setState((prevState) => {
       return { showCamera: !prevState.showCamera };
