@@ -24,6 +24,7 @@ class App extends React.Component {
       cancelledCall: false,
       isAuthenticated: false,
       caller: {},
+      mentorCaller: {},
       roomName: '',
       localAnswerStream: {},
       answerData: {},
@@ -251,9 +252,16 @@ class App extends React.Component {
   }
 
   closeVideoModal() {
-    setTimeout(() => this.setState({
-      caller: {}
-    }), 3600000);
+    if (this.state.cancelledCall && this.state.caller.role === 'mentor') {
+      this.setState({
+        mentorCaller: this.state.caller
+      });
+      setTimeout(() => this.setState({
+        mentorCaller: {}
+      }), 3600000);
+    }
+
+
     this.setState({
       showVideoModal: false
     });
@@ -324,6 +332,7 @@ class App extends React.Component {
 
       header =
         <Header
+          mentorCaller={this.state.mentorCaller}
           cancelCall={this.cancelCall.bind(this)}
           handleCall={this.handleCall.bind(this)}
           getOnlineUsers={this.getOnlineUsers.bind(this)}

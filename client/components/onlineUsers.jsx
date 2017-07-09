@@ -39,6 +39,7 @@ class OnlineUsers extends React.Component {
             var responseTime = mentorResponse[Object.keys(mentorResponse)[0]];
             var resolutionTime = mentorResolution[Object.keys(mentorResolution)[0]];
             return <OnlineUserEntry
+              mentorCaller={this.props.mentorCaller}
               cancelCall={cancelCall}
               modalUserType={modalUserType}
               handleCall={handleCall}
@@ -64,6 +65,7 @@ class OnlineUsers extends React.Component {
           </div>
           {users.students.map((user, index) => {
             return <OnlineUserEntry
+              mentorCaller={this.props.mentorCaller}
               cancelCall={cancelCall}
               modalUserType={modalUserType}
               handleCall={handleCall}
