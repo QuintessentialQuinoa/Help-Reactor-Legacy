@@ -20,7 +20,6 @@ class OnlineUserEntry extends React.Component {
   }
 
   toggleCamera () {
-    console.log(this.videoRoom);
     if (!this.state.showCamera) {
       this.props.handleCall(this.onlineUser, this.videoRoom);
     } else {
