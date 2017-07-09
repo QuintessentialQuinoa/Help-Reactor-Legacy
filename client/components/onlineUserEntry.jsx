@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
+import Panel from 'react-bootstrap/lib/Panel';
 import Button from 'react-bootstrap/lib/Button';
 
 class OnlineUserEntry extends React.Component {
@@ -33,12 +34,18 @@ class OnlineUserEntry extends React.Component {
   CameraModal () {
     let videoCall = null;
     if (this.props.declinedCall) {
-      videoCall = <h3> Call Ended By {this.onlineUser.name} </h3>
+      videoCall = 
+        <Modal.Body bsClass="modalBodyCallEnded">
+           <Panel> Call Ended By {this.onlineUser.name} </Panel>
+        </Modal.Body>;
     } else {
-      videoCall = <iframe
+      videoCall = 
+        <Modal.Body bsClass="modalBodyIframe">
+          <iframe
             scrolling='no'
             src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.videoRoom}`}>
-            </iframe>;
+          </iframe>
+        </Modal.Body>;      
     }
 
     return (
@@ -49,9 +56,7 @@ class OnlineUserEntry extends React.Component {
           <Modal.Header closeButton>
           <Modal.Title>Video Chat</Modal.Title>
           </Modal.Header>
-          <Modal.Body bsClass="modalBodySize">
           {videoCall}
-          </Modal.Body>
           <Modal.Footer>
             <Button className="btn btn-danger" onClick={this.toggleCamera}>Close</Button>
           </Modal.Footer>

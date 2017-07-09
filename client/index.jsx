@@ -286,7 +286,7 @@ class App extends React.Component {
           <Modal.Header closeButton>
             <Modal.Title>Incoming Video Call From {this.state.caller ? this.state.caller.name : ''}</Modal.Title>
           </Modal.Header>
-          <Modal.Body bsClass="modalBodySize">
+          <Modal.Body bsClass="modalBodyIframe">
             {
             !this.state.cancelledCall ?
                 <iframe
