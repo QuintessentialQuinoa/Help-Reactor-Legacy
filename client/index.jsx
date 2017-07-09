@@ -32,7 +32,8 @@ class App extends React.Component {
       statistic: {},
       waitTime: 0,
       mentorResponse: [],
-      mentorResolution: []
+      mentorResolution: [],
+      declinedCall: false
     };
     window.embedId = window.location.hostname === '127.0.0.1' ? 'ecd8e4ad-6793-4f70-8efe-cfbeaf5bf1d9' : '656adf00-f9d6-4a5c-b7c2-6c04a2b9eff0';
     this.closeVideoModal = this.closeVideoModal.bind(this);
@@ -278,7 +279,7 @@ class App extends React.Component {
     if (isAuthenticated) {
       nav = <Nav user={this.state.user} />
 
-      videoModal = 
+      videoModal =
         <Modal
           show={this.state.showVideoModal}
           onHide={this.closeVideoModal}
@@ -289,8 +290,8 @@ class App extends React.Component {
           <Modal.Body bsClass="modalBodySize">
             {
             !this.state.cancelledCall ?
-                <iframe 
-                  scrolling='no' 
+                <iframe
+                  scrolling='no'
                   src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.state.roomName}`}>
                 </iframe>
             :
@@ -298,7 +299,7 @@ class App extends React.Component {
                 Call ended by {this.state.caller.name}
               </h3>
             }
-            <audio 
+            <audio
               src="http://soundbible.com/mp3/glass_ping-Go445-1207030150.mp3"
               autoPlay
             />
@@ -308,7 +309,7 @@ class App extends React.Component {
           </Modal.Footer>
         </Modal>;
 
-      header = 
+      header =
         <Header
           cancelCall={this.cancelCall.bind(this)}
           handleCall={this.handleCall.bind(this)}
@@ -320,6 +321,7 @@ class App extends React.Component {
           waitTime={this.state.waitTime}
           mentorResponseTime={this.state.mentorResponse}
           mentorResolutionTime={this.state.mentorResolution}
+          declinedCall={this.state.declinedCall}
         />;
 
       list = <TicketList user={this.state.user} ticketList={this.state.ticketList} updateTickets={this.updateTickets.bind(this)} hasClaimed={this.state.hasClaimed} />;

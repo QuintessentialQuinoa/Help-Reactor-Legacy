@@ -40,10 +40,10 @@ class OnlineUserEntry extends React.Component {
           <Modal.Title>Video Chat</Modal.Title>
           </Modal.Header>
           <Modal.Body bsClass="modalBodySize">
-            <iframe 
+            <iframe
             scrolling='no'
             src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.videoRoom}`}>
-            </iframe>     
+            </iframe>
           </Modal.Body>
           <Modal.Footer>
             <Button className="btn btn-danger" onClick={this.toggleCamera}>Close</Button>
@@ -53,6 +53,7 @@ class OnlineUserEntry extends React.Component {
   }
 
   render () {
+    console.log(this.props.declinedCall)
     let userArea = null;
     let ableToVideoChat = null;
 
@@ -74,9 +75,9 @@ class OnlineUserEntry extends React.Component {
         <div className="modal-entry-middle">{this.props.user.username}</div>
         {this.props.modalUserType === 'students' ?
           <div className="modal-entry-middle">{this.props.user.ticketsPerDay}</div> : null}
-        {this.props.modalUserType === 'mentors' ? 
+        {this.props.modalUserType === 'mentors' ?
           <div className="modal-entry-middle">{this.props.responseTime} Minutes</div> : null }
-        {this.props.modalUserType === 'mentors' ? 
+        {this.props.modalUserType === 'mentors' ?
           <div className="modal-entry-middle">{this.props.resolutionTime} Minutes</div> : null }
         {ableToVideoChat}
         {this.CameraModal()}

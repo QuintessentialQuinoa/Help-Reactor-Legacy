@@ -79,6 +79,7 @@ class Header extends React.Component {
               mentorResolutionTime={this.props.mentorResolutionTime}
               modalUserType={this.state.modalUserType}
               appUser={this.props.user}
+              declinedCall={this.props.declinedCall}
             />
           </Modal.Body>
           <Modal.Footer>

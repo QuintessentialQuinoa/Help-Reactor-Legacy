@@ -7,16 +7,16 @@ class OnlineUsers extends React.Component {
   }
 
   render () {
-    const {appUser, 
+    const {appUser,
           cancelCall,
-          remoteStreamURL, 
-          handleCall, 
-          users, 
-          mentorResponseTime, 
-          mentorResolutionTime, 
+          remoteStreamURL,
+          handleCall,
+          users,
+          mentorResponseTime,
+          mentorResolutionTime,
           modalUserType} = this.props;
     let onlineUsers = null;
-    
+
     if (modalUserType === 'mentors') {
       onlineUsers =
         <div className="onlineUserContainer">
@@ -46,7 +46,10 @@ class OnlineUsers extends React.Component {
               user={user}
               responseTime={responseTime}
               resolutionTime={resolutionTime}
-              appUser={appUser}/>;
+              appUser={appUser}
+              declinedCall={this.props.declinedCall}
+            />;
+
           })}
         </div>;
     } else if (modalUserType === 'students') {
@@ -66,7 +69,8 @@ class OnlineUsers extends React.Component {
               handleCall={handleCall}
               key={index}
               user={user}
-              appUser={appUser}/>;
+              appUser={appUser}
+              declinedCall={this.props.declinedCall}/>;
           })}
         </div>;
     }
