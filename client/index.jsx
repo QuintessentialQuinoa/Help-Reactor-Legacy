@@ -104,7 +104,7 @@ class App extends React.Component {
       this.openVideoModal();
     });
 
-    this.socket.on('answer', (data) => this.setState({ answerData: data }));
+    this.socket.on('declined call', /* change the modal state to ended call */ );
 
     this.socket.emit('update tickets per day for every user');
 
@@ -231,6 +231,7 @@ class App extends React.Component {
       showVideoModal: false,
       acceptVideo: false
     });
+    this.socket.emit('decline');
   }
 
   openVideoModal() {
