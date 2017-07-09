@@ -17,7 +17,6 @@ class App extends React.Component {
     super();
     this.state = {
       showVideoModal: false,
-      acceptVideo: false,
       ticketList: [],
       ticketCategoryList: ['React', 'Socket.IO', 'Recursion', 'Postgres'],
       user: null,
@@ -252,9 +251,11 @@ class App extends React.Component {
   }
 
   closeVideoModal() {
+    setTimeout(() => this.setState({
+      caller: {}
+    }), 3600000);
     this.setState({
-      showVideoModal: false,
-      acceptVideo: false
+      showVideoModal: false
     });
     var receiver = {
       id: this.state.user.id,

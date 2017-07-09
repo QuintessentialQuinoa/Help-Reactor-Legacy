@@ -106,25 +106,25 @@ module.exports = server => {
     socket.on('call user', (info) => {
       console.log('info: ', info);
       if (info.receiver.role === 'student') {
-        students[info.receiver.id].forEach(socket => socket.emit('call request', info));
+        students[info.receiver.id] && students[info.receiver.id].forEach(socket => socket.emit('call request', info));
       } else if (info.receiver.role === 'mentor') {
-        mentors[info.receiver.id].forEach(socket => socket.emit('call request', info));
-      }
-    });
-
-    socket.on('decline', (info) => {
-      if (info.caller.role === 'student') {
-        students[info.caller.id].forEach(socket => socket.emit('declined call', info));
-      } else if (info.caller.role === 'mentor') {
-        mentors[info.caller.id].forEach(socket => socket.emit('declined call', info));
+        mentors[info.receiver.id] && mentors[info.receiver.id].forEach(socket => socket.emit('call request', info));
       }
     });
 
     socket.on('cancel call', (info) => {
       if (info.receiver.role === 'student') {
-        students[info.receiver.id].forEach(socket => socket.emit('cancelled call', info));
+        students[info.receiver.id] && students[info.receiver.id].forEach(socket => socket.emit('cancelled call', info));
       } else if (info.receiver.role === 'mentor') {
-        mentors[info.receiver.id].forEach(socket => socket.emit('cancelled call', info));
+        mentors[info.receiver.id] && mentors[info.receiver.id].forEach(socket => socket.emit('cancelled call', info));
+      }
+    });
+
+    socket.on('decline', (info) => {
+      if (info.caller.role === 'student') {
+        students[info.caller.id] && students[info.caller.id].forEach(socket => socket.emit('declined call', info));
+      } else if (info.caller.role === 'mentor') {
+        mentors[info.caller.id] && mentors[info.caller.id].forEach(socket => socket.emit('declined call', info));
       }
     });
 
