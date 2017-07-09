@@ -9,6 +9,7 @@ import Nav from './components/nav.jsx';
 import Header from './components/header.jsx';
 import AdminDashboard from './components/adminDashboard.jsx';
 import Modal from 'react-bootstrap/lib/Modal';
+import Panel from 'react-bootstrap/lib/Panel';
 import Button from 'react-bootstrap/lib/Button';
 
 class App extends React.Component {
@@ -251,10 +252,12 @@ class App extends React.Component {
       role: this.state.user.role,
       name: `${this.state.user.firstName} ${this.state.user.lastName}`
     }
-    this.socket.emit('decline', {
-      caller: this.state.caller,
-      receiver: receiver
-    });
+    if (!this.state.cancelledCall) {
+      this.socket.emit('decline', {
+        caller: this.state.caller,
+        receiver: receiver
+      });
+    }
   }
 
   openVideoModal() {
@@ -286,23 +289,26 @@ class App extends React.Component {
           <Modal.Header closeButton>
             <Modal.Title>Incoming Video Call From {this.state.caller ? this.state.caller.name : ''}</Modal.Title>
           </Modal.Header>
-          <Modal.Body bsClass="modalBodyIframe">
             {
             !this.state.cancelledCall ?
-                <iframe
-                  scrolling='no'
-                  src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.state.roomName}`}>
-                </iframe>
+                <Modal.Body bsClass="modalBodyIframe">
+                  <iframe
+                    scrolling='no'
+                    src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=${window.embedId}&iframe=true&room=${this.state.roomName}`}>
+                  </iframe>
+                  <audio
+                    src="http://soundbible.com/mp3/glass_ping-Go445-1207030150.mp3"
+                    autoPlay
+                  />
+                </Modal.Body>
             :
-              <h3>
-                Call ended by {this.state.caller.name}
-              </h3>
+              <Modal.Body bsClass="modalBodyCallEnded">
+                <Panel> 
+                  <div> Call Ended By <b>{this.onlineUser.name}</b> </div>
+                  <div>on <b>{new Date().toLocaleDateString()}</b> at <b>{new Date().toLocaleTimeString()}</b></div>
+                </Panel>
+              </Modal.Body>
             }
-            <audio
-              src="http://soundbible.com/mp3/glass_ping-Go445-1207030150.mp3"
-              autoPlay
-            />
-          </Modal.Body>
           <Modal.Footer>
             <Button className="btn btn-danger" onClick={this.closeVideoModal}>Close</Button>
           </Modal.Footer>

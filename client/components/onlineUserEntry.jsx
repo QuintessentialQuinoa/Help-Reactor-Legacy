@@ -24,7 +24,9 @@ class OnlineUserEntry extends React.Component {
     if (!this.state.showCamera) {
       this.props.handleCall(this.onlineUser, this.videoRoom);
     } else {
-      this.props.cancelCall(this.onlineUser);
+      if (!this.props.declinedCall) {
+        this.props.cancelCall(this.onlineUser);
+      }
     }
     this.setState((prevState) => {
       return { showCamera: !prevState.showCamera };
@@ -36,7 +38,10 @@ class OnlineUserEntry extends React.Component {
     if (this.props.declinedCall) {
       videoCall = 
         <Modal.Body bsClass="modalBodyCallEnded">
-           <Panel> Call Ended By {this.onlineUser.name} </Panel>
+           <Panel> 
+              <div> Call Ended By <b>{this.onlineUser.name}</b> </div>
+              <div> on <b>{new Date().toLocaleDateString()}</b> at <b>{new Date().toLocaleTimeString()}</b></div>
+            </Panel>
         </Modal.Body>;
     } else {
       videoCall = 

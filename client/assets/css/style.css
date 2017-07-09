@@ -353,7 +353,6 @@ iframe {
   font-weight: 300;
   font-size: 30px;
   padding: 5px;
-  text-transform: uppercase;
   margin: 20px;
   padding: 20px;
   width: 100%;
@@ -363,10 +362,15 @@ iframe {
 }
 
 .panel-body {
+  color: #d9534f;
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 100%;
   width: 100%;
   padding: 0px;
+}
+
+b {
+  font-weight: 500;
 }
