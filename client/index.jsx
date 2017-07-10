@@ -115,7 +115,7 @@ class App extends React.Component {
     this.socket.on('cancelled call', (data) => {
       this.setState({ 
         cancelledCall: true,
-        caller: data.caller,
+        caller: data.caller
       });
     });
 
@@ -253,8 +253,10 @@ class App extends React.Component {
 
   closeVideoModal() {
     if (this.state.cancelledCall && this.state.caller.role === 'mentor') {
-      this.setState({
-        mentorCaller: this.state.caller
+      this.setState((prevState) => {
+        return {
+          mentorCaller: prevState.caller
+        };
       });
       setTimeout(() => this.setState({
         mentorCaller: {}
