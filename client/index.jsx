@@ -17,7 +17,6 @@ class App extends React.Component {
     super();
     this.state = {
       showVideoModal: false,
-      acceptVideo: false,
       ticketList: [],
       ticketCategoryList: ['React', 'Socket.IO', 'Recursion', 'Postgres'],
       user: null,
@@ -25,6 +24,7 @@ class App extends React.Component {
       cancelledCall: false,
       isAuthenticated: false,
       caller: {},
+      mentorCaller: {},
       roomName: '',
       localAnswerStream: {},
       answerData: {},
@@ -115,7 +115,7 @@ class App extends React.Component {
     this.socket.on('cancelled call', (data) => {
       this.setState({ 
         cancelledCall: true,
-        caller: data.caller,
+        caller: data.caller
       });
     });
 
@@ -252,9 +252,20 @@ class App extends React.Component {
   }
 
   closeVideoModal() {
+    if (this.state.cancelledCall && this.state.caller.role === 'mentor') {
+      this.setState((prevState) => {
+        return {
+          mentorCaller: prevState.caller
+        };
+      });
+      setTimeout(() => this.setState({
+        mentorCaller: {}
+      }), 3600000);
+    }
+
+
     this.setState({
-      showVideoModal: false,
-      acceptVideo: false
+      showVideoModal: false
     });
     var receiver = {
       id: this.state.user.id,
@@ -323,6 +334,7 @@ class App extends React.Component {
 
       header =
         <Header
+          mentorCaller={this.state.mentorCaller}
           cancelCall={this.cancelCall.bind(this)}
           handleCall={this.handleCall.bind(this)}
           getOnlineUsers={this.getOnlineUsers.bind(this)}

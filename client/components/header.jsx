@@ -72,6 +72,7 @@ class Header extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <OnlineUsers
+              mentorCaller={this.props.mentorCaller}
               cancelCall={this.props.cancelCall}
               handleCall={this.props.handleCall}
               users={this.props.onlineUserInfo}
